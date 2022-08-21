@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" >
+    <mat-toolbar-row>
+      <h1>EGIT Service</h1>
+      <span class="menu-spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        Luns
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a routerLink="viewLuns">
+            <button mat-menu-item>
+                 View All
+            </button>
+        </a>
+      </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
+  
+<router-outlet></router-outlet>

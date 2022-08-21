@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>Update Order</h1>
+<div>
+    <mat-dialog-content>
+        <form [formGroup]="lunForm">
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun ID</mat-label>
+                    <input formControlName="LunID" matInput type="number" placeholder="Lun ID" >
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun Name</mat-label>
+                    <input formControlName="LunName" matInput type="string" placeholder="Lun Name">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun Type</mat-label>
+                    <input formControlName="LunType" matInput type="string" placeholder="Lun Type">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun Total Space</mat-label>
+                    <input formControlName="LunTSpace" matInput type="number" placeholder="Lun Total Space">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun Remaining Space</mat-label>
+                    <input formControlName="LunRSpace" matInput type="number" placeholder="Lun Remaining Space" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage ID</mat-label>
+                    <input formControlName="StorageID" matInput type="number" placeholder="Storage ID" >
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 10px;" [disabled]="lunForm.invalid" mat-raised-button color="primary"
+        (click)="CreateLun()">Create</button>
+</div>

@@ -23,12 +23,14 @@ import { TokenInterceptorService } from './users/token-interceptor.service';
 import { UserLoginComponent } from './users/user-login/user-login.component';
 import { UserRegistrationComponent } from './users/user-registration/user-registration.component';
 import { UserService } from './users/user.service';
+import { MainModule } from './main/main.module';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserLoginComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +52,8 @@ import { UserService } from './users/user.service';
     MatCardModule,
     MatPseudoCheckboxModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-
   providers: [HttpClient, HttpClientModule, UserService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
