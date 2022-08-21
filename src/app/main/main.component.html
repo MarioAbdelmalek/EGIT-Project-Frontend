@@ -1,0 +1,18 @@
+<mat-toolbar class="sticky">
+    <mat-toolbar-row fxLayoutAlign="space-between center">
+        <div fxLayout="row">
+            <button mat-button (click)="returnToHomePage()">
+                <mat-icon>home</mat-icon>
+                <span class="logo">EGID</span>
+            </button>
+            <div fxLayout="row">
+                <button mat-button class="nav-texts" [routerLink]="'viewAllClusters'">Clusters</button>
+            </div>
+        </div>
+        <div>
+            <button mat-button class="nav-texts" (click)="logout()">Logout</button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

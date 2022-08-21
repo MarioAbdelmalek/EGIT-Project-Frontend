@@ -1,0 +1,11 @@
+.header {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+    margin-bottom: 45px !important;
+}
+
+.title {
+    margin-top: 100px
+}

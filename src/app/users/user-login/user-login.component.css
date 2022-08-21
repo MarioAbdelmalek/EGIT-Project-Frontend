@@ -1,0 +1,22 @@
+mat-card {
+    width: 29%;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+mat-form-field {
+    width: 90%;
+    display: block;
+    margin: auto;
+}
+
+mat-card-content {
+    margin-top: 10px;
+}
+
+.login-button {
+    width: 90%;
+    margin-left: 18px;
+    margin-top: 15px;
+    border-radius: 12px;
+}
