@@ -19,3 +19,6 @@ table {
 ::ng-deep.mat-sort-header-container {
   justify-content: center;
 }
+.full-width-field{
+  width: 100%;
+}

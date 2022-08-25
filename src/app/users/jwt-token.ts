@@ -1,5 +1,5 @@
 export interface JwtToken {
     Token: string;
     Response: string;
-    isValid: Boolean;
+    IsValid: Boolean;
 }

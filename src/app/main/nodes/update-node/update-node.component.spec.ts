@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StorageComponent } from './storage.component';
+import { UpdateNodeComponent } from './update-node.component';
 
-describe('StorageComponent', () => {
-  let component: StorageComponent;
-  let fixture: ComponentFixture<StorageComponent>;
+describe('UpdateNodeComponent', () => {
+  let component: UpdateNodeComponent;
+  let fixture: ComponentFixture<UpdateNodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StorageComponent ]
+      declarations: [ UpdateNodeComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StorageComponent);
+    fixture = TestBed.createComponent(UpdateNodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

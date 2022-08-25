@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Lun } from 'src/Models/lun';
 import { LunService } from '../../lun.service';
 
 @Component({
@@ -19,8 +18,7 @@ export class UpdateLunComponent implements OnInit {
 
   ngOnInit(): void {
     this.lunForm=this.formBuilder.group({
-      LunID: [''],
-      LunName : [''],
+      LunName : ['', Validators.required],
       LunType : ['', Validators.required],
       LunTSpace : ['', Validators.required],
       LunRSpace : ['', Validators.required],
@@ -28,7 +26,7 @@ export class UpdateLunComponent implements OnInit {
   });
   
   if(this.lunToBeUpdated){
-    this.lunForm.controls['LunID'].setValue(this.lunToBeUpdated.LunID);
+    debugger;
       this.lunForm.controls['LunName'].setValue(this.lunToBeUpdated.LunName);
       this.lunForm.controls['LunType'].setValue(this.lunToBeUpdated.LunType);
       this.lunForm.controls['LunTSpace'].setValue(this.lunToBeUpdated.LunTSpace);
@@ -39,12 +37,8 @@ export class UpdateLunComponent implements OnInit {
 
   UpdateLun(){
 
-    this.lunToBeUpdated.LunType=this.lunForm.value["LunType"];
-    this.lunToBeUpdated.LunTSpace=this.lunForm.value["LunTSpace"];
-    this.lunToBeUpdated.LunRSpace=this.lunForm.value["LunRSpace"];
-    this.lunToBeUpdated.StorageID=this.lunForm.value["StorageID"];
-
-    this.lunService.UpdateLun(this.lunToBeUpdated).subscribe({
+    debugger;
+    this.lunService.UpdateLun(this.lunForm.value,this.lunToBeUpdated.LunID).subscribe({
         next: () => {
           this.dialogRef.close();
         },

@@ -22,8 +22,9 @@ export class LunService {
   DeleteLun(LunID:number){
     return this.http.delete(this.APIUrl+'/Lun/deleteLun?id='+LunID);
   }
-  UpdateLun(lun:Lun){
-    return this.http.post(this.APIUrl+'/Lun/updateLun',lun);
+  UpdateLun(lun:Lun, id:any){
+    debugger;
+    return this.http.put(this.APIUrl+'/Lun/updateLun?LunID='+id,lun);
   }
   AddLun(lun:Lun){
     return this.http.post(this.APIUrl+'/Lun/addLun',lun);

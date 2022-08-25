@@ -46,9 +46,12 @@ export class ViewLunsComponent implements OnInit {
     });
   }
 
-  openUpdateLunDialog(lun:Lun){
+  openUpdateLunDialog(lunToBeUpdated:Lun){
 
-    this.dialog.open(UpdateLunComponent,lun);
+    this.dialog.open(UpdateLunComponent,{
+      width: '400px',
+      data: lunToBeUpdated
+    });
   }
 
   openCreateLunDialog(){
