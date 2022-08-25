@@ -18,7 +18,7 @@ export class ViewClustersComponent implements OnInit {
   clusterList: any;
   private dialog: MatDialog;
 
-  displayedColumns: string[] = ['ClusterID', 'ClusterName', 'ClusterType', 'Action'];
+  displayedColumns: string[] = ['ClusterID', 'ClusterType', 'ClusterName', 'ClusterTotalCPUCores', 'ClusterRemainingCPUCores', 'ClusterTotalRAM', 'ClusterRemainingRAM', 'NumberOfNodes', 'Action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

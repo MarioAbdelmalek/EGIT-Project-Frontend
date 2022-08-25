@@ -1,0 +1,59 @@
+<div class="container">
+    <div style="margin-bottom: 10px;">
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ROCK" #input>
+        </mat-form-field>
+
+        <div class="mat-elevation-z8" style="text-align: center">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="ClientID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.ClientID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ClientName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.ClientName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ClientSector">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Sector </th>
+                    <td mat-cell *matCellDef="let row"> {{row.ClientSector}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ISPID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ISP ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.ISPID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="primary" (click)="openUpdateClientDialog(row)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteClient(row.ClientID)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <div style="text-align: left">
+                <button mat-raised-button color="primary" style="margin-left:20px; margin-top:20px;"
+                    (click)="openCreateClientDialog()">
+                    Add New Client
+                </button>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Add New Storage</h1>
+<div>
+    <mat-dialog-content>
+        <form [formGroup]="storageForm">
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage Name</mat-label>
+                    <input formControlName="StorageName" matInput type="text" placeholder="Storage Name">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage Type</mat-label>
+                    <input formControlName="StorageType" matInput type="text" placeholder="Storage Type">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage T Space</mat-label>
+                    <input formControlName="StorageTSpace" matInput type="number" placeholder="Storage T Space">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage R Space</mat-label>
+                    <input formControlName="StorageRSpace" matInput type="number" placeholder="Storage R Space">
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 10px;" [disabled]="storageForm.invalid" mat-raised-button color="primary"
+        (click)="addStorage()">Save</button>
+</div>

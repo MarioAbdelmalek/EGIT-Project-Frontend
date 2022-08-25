@@ -11,13 +11,13 @@ import { ClusterService } from '../cluster.service';
 export class UpdateClusterComponent implements OnInit {
 
   clusterForm!: FormGroup;
-  formBulider: FormBuilder;
+  formBuilder: FormBuilder;
   clusterService: ClusterService;
 
-  constructor(formBulider: FormBuilder, clusterService: ClusterService,
+  constructor(formBuilder: FormBuilder, clusterService: ClusterService,
     @Inject(MAT_DIALOG_DATA) public clusterToBeUpdated: any,
     private dialogRef: MatDialogRef<UpdateClusterComponent>) {
-    this.formBulider = formBulider;
+    this.formBuilder = formBuilder;
     this.clusterService = clusterService;
   }
 
@@ -35,7 +35,7 @@ export class UpdateClusterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clusterForm = this.formBulider.group({
+    this.clusterForm = this.formBuilder.group({
       ClusterName: ['', Validators.required],
       ClusterType: ['', Validators.required]
     });
