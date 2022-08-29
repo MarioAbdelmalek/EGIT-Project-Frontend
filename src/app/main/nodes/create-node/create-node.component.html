@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Add New Node</h1>
+<div>
+    <mat-dialog-content>
+        <form [formGroup]="nodeForm">
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Cluster ID</mat-label>
+                    <input formControlName="ClusterID" matInput type="number" placeholder="Cluster ID"
+                        [readonly]="true">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="NodeName" matInput type="text" placeholder="Node Name">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Total RAM</mat-label>
+                    <input formControlName="NodeTotalRAM" matInput type="number" placeholder="Node Total RAM">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Total CPU Cores</mat-label>
+                    <input formControlName="NodeTotalCPUCores" matInput type="number"
+                        placeholder="Node Total CPU Cores">
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 10px;" [disabled]="nodeForm.invalid" mat-raised-button color="primary"
+        (click)="addNode()">Save</button>
+</div>

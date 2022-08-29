@@ -4,7 +4,9 @@ import { ViewClientsComponent } from './clients/view-clients/view-clients.compon
 import { ViewClustersComponent } from './clusters/view-clusters/view-clusters.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MainComponent } from './main.component';
+import { ViewClusterNodesComponent } from './nodes/view-cluster-nodes/view-cluster-nodes.component';
 import { ViewStoragesComponent } from './storages/view-storages/view-storages.component';
+import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.component';
 
 const routes: Routes = [
   {
@@ -12,7 +14,9 @@ const routes: Routes = [
       { path: '', component: HomePageComponent },
       { path: 'viewAllClusters', component: ViewClustersComponent },
       { path: 'viewAllStorages', component: ViewStoragesComponent },
-      { path: 'viewAllClients', component: ViewClientsComponent }
+      { path: 'viewAllClients', component: ViewClientsComponent },
+      { path: 'viewClusterNodes/:clusterID', component: ViewClusterNodesComponent },
+      { path: 'viewNodeVMs/:nodeID', component: ViewNodeVMsComponent }
     ]
   },
 ];

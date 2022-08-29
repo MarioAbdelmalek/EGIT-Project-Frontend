@@ -32,6 +32,14 @@ import { ViewClientsComponent } from './clients/view-clients/view-clients.compon
 import { UpdateClientComponent } from './clients/update-client/update-client.component';
 import { AddClientComponent } from './clients/add-client/add-client.component';
 import { ClientService } from './clients/client.service';
+import { ViewClusterNodesComponent } from './nodes/view-cluster-nodes/view-cluster-nodes.component';
+import { UpdateNodeComponent } from './nodes/update-node/update-node.component';
+import { CreateNodeComponent } from './nodes/create-node/create-node.component';
+import { NodeService } from './nodes/node.service';
+import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.component';
+import { CreateVMComponent } from './vms/create-vm/create-vm.component';
+import { UpdateVMComponent } from './vms/update-vm/update-vm.component';
+import { VMService } from './vms/vm.service';
 
 
 @NgModule({
@@ -46,7 +54,13 @@ import { ClientService } from './clients/client.service';
     UpdateStorageComponent,
     ViewClientsComponent,
     UpdateClientComponent,
-    AddClientComponent
+    AddClientComponent,
+    ViewClusterNodesComponent,
+    UpdateNodeComponent,
+    CreateNodeComponent,
+    ViewNodeVMsComponent,
+    CreateVMComponent,
+    UpdateVMComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +83,7 @@ import { ClientService } from './clients/client.service';
     MatPseudoCheckboxModule,
     FlexLayoutModule
   ],
-  providers: [ClusterService, ClientService, StorageService, HttpClient, HttpClientModule]
+  providers: [ClusterService, ClientService, StorageService, NodeService, VMService, HttpClient, HttpClientModule]
 
 })
 export class MainModule { }

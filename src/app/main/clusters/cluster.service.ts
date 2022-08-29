@@ -13,11 +13,15 @@ export class ClusterService {
         return this.http.get('https://localhost:44334/api/Cluster/getAllClusters');
     }
 
+    getClustersByType(type: any): Observable<any> {
+        return this.http.get('https://localhost:44334/api/Cluster/getClustersByType?ClusterType=' + type);
+    }
+
     addCluster(data: any) {
         return this.http.post('https://localhost:44334/api/Cluster/addCluster', data);
     }
 
-    deleteCluster(id: any) {
+    deleteCluster(id: any): Observable<any> {
         return this.http.delete('https://localhost:44334/api/Cluster/deleteCluster?ClusterID=' + id);
     }
 

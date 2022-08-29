@@ -34,8 +34,8 @@ export class CreateClusterComponent implements OnInit {
 
   ngOnInit(): void {
     this.clusterForm = this.formBuilder.group({
-      ClusterName: ['', Validators.required],
-      ClusterType: ['', Validators.required]
+      ClusterType: ['', Validators.required],
+      ClusterName: ['', Validators.required]
     })
   }
 

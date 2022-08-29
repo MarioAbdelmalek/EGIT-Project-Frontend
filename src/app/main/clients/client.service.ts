@@ -13,12 +13,12 @@ export class ClientService {
         return this.http.get('https://localhost:44334/api/Client/getAllClients');
     }
 
-    // addClient(data: any) {
-    //     return this.http.post('https://localhost:44334/api/Cluster/addCluster', data);
-    // }
+    addClient(data: any) {
+        return this.http.post('https://localhost:44334/api/Client/addClient', data);
+    }
 
     deleteClient(id: any) {
-        return this.http.delete('https://localhost:44334/api/Cluient/deleteClient?ClientID=' + id);
+        return this.http.delete('https://localhost:44334/api/Client/deleteClient?ClientID=' + id);
     }
 
     // updateClient(id: number, data: any) {

@@ -42,7 +42,7 @@ export class UpdateClusterComponent implements OnInit {
 
     if (this.clusterToBeUpdated) {
       this.clusterForm.controls['ClusterName'].setValue(this.clusterToBeUpdated.ClusterName);
-      this.clusterForm.controls['ClusterType'].setValue(this.clusterToBeUpdated.ClusterType)
+      this.clusterForm.controls['ClusterType'].setValue(this.clusterToBeUpdated.ClusterType);
     }
   }
 
