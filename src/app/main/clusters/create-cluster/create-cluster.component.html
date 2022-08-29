@@ -4,15 +4,19 @@
         <form [formGroup]="clusterForm">
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Cluster Name</mat-label>
-                    <input formControlName="ClusterName" matInput type="text" placeholder="Cluster Name">
+                    <mat-label>Cluster Type</mat-label>
+                    <mat-select placeholder="Cluster Type" formControlName="ClusterType">
+                        <mat-option value="VMware">VMware</mat-option>
+                        <mat-option value="RHEV">RHEV</mat-option>
+                        <mat-option value="Hyper-V">Hyper-V</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Cluster Type</mat-label>
-                    <input formControlName="ClusterType" matInput type="text" placeholder="Cluster Type">
+                    <mat-label>Cluster Name</mat-label>
+                    <input formControlName="ClusterName" matInput type="text" placeholder="Cluster Name">
                 </mat-form-field>
             </div>
         </form>

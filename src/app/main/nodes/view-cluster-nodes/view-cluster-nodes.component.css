@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 15px;
+    width: 100%;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+::ng-deep.mat-sort-header-content {
+    font-size: 17px;
+}
+
+::ng-deep.mat-sort-header-container {
+    justify-content: center;
+}

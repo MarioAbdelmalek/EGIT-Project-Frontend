@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { SignalRService } from 'src/app/signal-r.service';
 import { ClusterService } from '../cluster.service';
 import { CreateClusterComponent } from '../create-cluster/create-cluster.component';
@@ -19,13 +20,13 @@ export class ViewClustersComponent implements OnInit {
   clusterList: any;
   private dialog: MatDialog;
 
-  displayedColumns: string[] = ['ClusterID', 'ClusterType', 'ClusterName', 'ClusterTotalCPUCores', 'ClusterRemainingCPUCores', 'ClusterTotalRAM', 'ClusterRemainingRAM', 'NumberOfNodes', 'Action'];
+  displayedColumns: string[] = ['ClusterID', 'ClusterType', 'ClusterName', 'ClusterRemainingRAM', 'ClusterRemainingCPUCores', 'Nodes', 'Action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(clusterService: ClusterService, dialog: MatDialog, private signalRService:SignalRService) {
+  constructor(clusterService: ClusterService, dialog: MatDialog, private router: Router, private signalRService:SignalRService) {
     this.clusterService = clusterService;
     this.dialog = dialog;
   }
@@ -54,6 +55,10 @@ export class ViewClustersComponent implements OnInit {
     );
   }
 
+  viewClusterNodes(clusterID: any) {
+    this.router.navigate(['viewClusterNodes', clusterID]);
+  }
+
   openCreateClusterDialog() {
     this.dialog.open(CreateClusterComponent, {
       width: '400px'
@@ -68,9 +73,22 @@ export class ViewClustersComponent implements OnInit {
   }
 
   deleteCluster(id: any) {
-    this.clusterService.deleteCluster(id).subscribe(() => {
-      this.getAllClusters();
-    })
+    this.clusterService.deleteCluster(id).subscribe(({
+      next: (res) => {
+        if (res.IsValid === false) {
+          alert("Cannot Delete This Cluster, Please Delete Its Nodes First!");
+          this.router.navigate(['viewClusterNodes', id]);
+        }
+
+        else {
+          this.getAllClusters();
+        }
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    }))
   }
 
   ngOnInit(): void {

@@ -1,50 +1,34 @@
-<h1 mat-dialog-title>Create Node</h1>
+<h1 mat-dialog-title>Add New Node</h1>
 <div>
     <mat-dialog-content>
         <form [formGroup]="nodeForm">
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Node Name</mat-label>
-                    <input formControlName="NodeName" matInput type="string" placeholder="Node Name">
+                    <mat-label>Cluster ID</mat-label>
+                    <input formControlName="ClusterID" matInput type="number" placeholder="Cluster ID"
+                        [readonly]="true">
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Node Type</mat-label>
-                    <input formControlName="NodeType" matInput type="string" placeholder="Node Type">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="NodeName" matInput type="text" placeholder="Node Name">
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Total RAM</mat-label>
-                    <input formControlName="TotalRAM" matInput type="number" placeholder="Total RAM">
+                    <input formControlName="NodeTotalRAM" matInput type="number" placeholder="Node Total RAM">
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Remaining RAM</mat-label>
-                    <input formControlName="RemainingRAM" matInput type="number" placeholder="Remaining RAM" >
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Total CPU Cores</mat-label>
-                    <input formControlName="TotalCPUCores" matInput type="number" placeholder="Total CPU Cores" >
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Remaining CPU Cores</mat-label>
-                    <input formControlName="RemainingCPUCores" matInput type="number" placeholder="Remaining CPU Cores" >
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Cluster ID</mat-label>
-                    <input formControlName="ClusterID" matInput type="number" placeholder="Cluster ID" >
+                    <input formControlName="NodeTotalCPUCores" matInput type="number"
+                        placeholder="Node Total CPU Cores">
                 </mat-form-field>
             </div>
         </form>
@@ -54,5 +38,5 @@
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Close</button>
     <button style="margin-left: 10px;" [disabled]="nodeForm.invalid" mat-raised-button color="primary"
-        (click)="CreateNode()">Create</button>
+        (click)="addNode()">Save</button>
 </div>

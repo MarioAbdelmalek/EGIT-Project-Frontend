@@ -7,36 +7,41 @@
 
         <div class="mat-elevation-z8" style="text-align: center">
             <table mat-table [dataSource]="dataSource" matSort>
-                <ng-container matColumnDef="ClusterID">
+                <ng-container matColumnDef="NodeID">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                    <td mat-cell *matCellDef="let row"> {{row.ClusterID}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.NodeID}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="ClusterType">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-                    <td mat-cell *matCellDef="let row"> {{row.ClusterType}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="ClusterName">
+                <ng-container matColumnDef="NodeName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                    <td mat-cell *matCellDef="let row"> {{row.ClusterName}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.NodeName}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="ClusterRemainingRAM">
+                <ng-container matColumnDef="NodeTotalRAM">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total RAM </th>
+                    <td mat-cell *matCellDef="let row"> {{row.NodeTotalRAM}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="NodeRemainingRAM">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Remaining RAM </th>
-                    <td mat-cell *matCellDef="let row"> {{row.ClusterRemainingRAM}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.NodeRemainingRAM}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="ClusterRemainingCPUCores">
+                <ng-container matColumnDef="NodeTotalCPUCores">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total CPU Cores </th>
+                    <td mat-cell *matCellDef="let row"> {{row.NodeTotalCPUCores}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="NodeRemainingCPUCores">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Remaining CPU Cores </th>
-                    <td mat-cell *matCellDef="let row"> {{row.ClusterRemainingCPUCores}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.NodeRemainingCPUCores}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="Nodes">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nodes </th>
+                <ng-container matColumnDef="VMs">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> VMs </th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-raised-button color="primary" (click)=" viewClusterNodes(row.ClusterID)">
-                            View Nodes
+                        <button mat-raised-button color="primary" (click)=" viewNodeVMs(row.NodeID)">
+                            View VMs
                         </button>
                     </td>
                 </ng-container>
@@ -44,10 +49,10 @@
                 <ng-container matColumnDef="Action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                     <td mat-cell *matCellDef="let row">
-                        <button mat-icon-button color="primary" (click)="openUpdateClusterDialog(row)">
+                        <button mat-icon-button color="primary" (click)="openUpdateNodeDialog(row)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn" (click)="deleteCluster(row.ClusterID)">
+                        <button mat-icon-button color="warn" (click)="deleteNode(row.NodeID)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
@@ -63,8 +68,8 @@
 
             <div style="text-align: left">
                 <button mat-raised-button color="primary" style="margin-left:20px; margin-top:20px;"
-                    (click)="openCreateClusterDialog()">
-                    Add New Cluster
+                    (click)="openCreateNodeDialog()">
+                    Add New Node
                 </button>
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
             </div>

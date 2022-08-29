@@ -6,9 +6,11 @@ import { ViewClientsComponent } from './clients/view-clients/view-clients.compon
 import { ViewClustersComponent } from './clusters/view-clusters/view-clusters.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MainComponent } from './main.component';
+import { ViewClusterNodesComponent } from './nodes/view-cluster-nodes/view-cluster-nodes.component';
 import { ViewStoragesComponent } from './storages/view-storages/view-storages.component';
 import { ViewStorageLunsComponent } from './storages/view-storage-luns/view-storage-luns.component';
 import { ViewVpnsComponent } from './vpns/view-vpns/view-vpns.component';
+import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.component';
 
 const routes: Routes = [
   {
@@ -20,7 +22,9 @@ const routes: Routes = [
       { path: 'viewAllStorages', component: ViewStoragesComponent },
       { path: 'viewAllClients', component: ViewClientsComponent },
       {path: 'viewAllStorages/viewStorageLuns/:id', component:ViewStorageLunsComponent},
-      {path:'viewAllVpns',component:ViewVpnsComponent}
+      {path:'viewAllVpns',component:ViewVpnsComponent},
+      { path: 'viewClusterNodes/:clusterID', component: ViewClusterNodesComponent },
+      { path: 'viewNodeVMs/:nodeID', component: ViewNodeVMsComponent }
     ]
   },
 ];

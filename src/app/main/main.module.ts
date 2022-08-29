@@ -30,8 +30,6 @@ import { CreateClusterComponent } from './clusters/create-cluster/create-cluster
 import { UpdateClusterComponent } from './clusters/update-cluster/update-cluster.component';
 import { ClusterService } from './clusters/cluster.service';
 import { ViewNodesComponent } from './nodes/view-nodes/view-nodes.component';
-import { UpdateNodeComponent } from './nodes/update-node/update-node.component';
-import { CreateNodeComponent } from './nodes/create-node/create-node.component';
 import { ViewStoragesComponent } from './storages/view-storages/view-storages.component';
 import { CreateStorageComponent } from './storages/create-storage/create-storage.component';
 import { UpdateStorageComponent } from './storages/update-storage/update-storage.component';
@@ -44,6 +42,15 @@ import { ViewStorageLunsComponent } from './storages/view-storage-luns/view-stor
 import { ViewVpnsComponent } from './vpns/view-vpns/view-vpns.component';
 import { CreateVpnComponent } from './vpns/create-vpn/create-vpn.component';
 import { UpdateVpnComponent } from './vpns/update-vpn/update-vpn.component';
+import { ViewClusterNodesComponent } from './nodes/view-cluster-nodes/view-cluster-nodes.component';
+import { UpdateNodeComponent } from './nodes/update-node/update-node.component';
+import { CreateNodeComponent } from './nodes/create-node/create-node.component';
+import { NodeService } from './nodes/node.service';
+import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.component';
+import { CreateVMComponent } from './vms/create-vm/create-vm.component';
+import { UpdateVMComponent } from './vms/update-vm/update-vm.component';
+import { VMService } from './vms/vm.service';
+
 
 @NgModule({
   declarations: [
@@ -68,9 +75,14 @@ import { UpdateVpnComponent } from './vpns/update-vpn/update-vpn.component';
     ViewStorageLunsComponent,
     ViewVpnsComponent,
     CreateVpnComponent,
-    UpdateVpnComponent
-    ],
-
+    UpdateVpnComponent,
+    ViewClusterNodesComponent,
+    UpdateNodeComponent,
+    CreateNodeComponent,
+    ViewNodeVMsComponent,
+    CreateVMComponent,
+    UpdateVMComponent
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -92,6 +104,6 @@ import { UpdateVpnComponent } from './vpns/update-vpn/update-vpn.component';
     MatPseudoCheckboxModule,
     FlexLayoutModule,
   ],
-  providers: [LunService,ClusterService, HttpClient, HttpClientModule, ClientService, StorageService]
+  providers: [LunService,ClusterService, HttpClient, HttpClientModule, ClientService, StorageService,NodeService,VMService]
 })
 export class MainModule { }

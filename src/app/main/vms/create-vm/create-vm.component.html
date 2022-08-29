@@ -1,0 +1,90 @@
+<h1 mat-dialog-title>Add New VM</h1>
+<div>
+    <mat-dialog-content>
+        <form [formGroup]="vmForm">
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Node ID</mat-label>
+                    <input formControlName="NodeID" matInput type="number" placeholder="Node ID" [readonly]="true">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Client Name</mat-label>
+                    <mat-select placeholder="Client Name" formControlName="ClientID">
+                        <mat-option *ngFor="let client of clientList" [value]="client.ClientID">
+                            {{client.ClientName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun Name</mat-label>
+                    <mat-select placeholder="Lun ID" formControlName="LunID">
+                        <mat-option *ngFor="let lun of lunList" [value]="lun.LunID">
+                            {{lun.LunName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div> -->
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun ID</mat-label>
+                    <input formControlName="LunID" matInput type="number" placeholder="Lun ID" [readonly]="true">
+                </mat-form-field>
+            </div>
+
+            <ng-template [ngIf]="vmNode!=null">
+                <div>
+                    <mat-form-field appearance="outline" class="full-width-field">
+                        <mat-label>CPU Cores</mat-label>
+                        <input formControlName="CPUCores" matInput type="number" placeholder="CPU Cores"
+                            max="{{vmNode.NodeRemainingCPUCores}}" min="{{0}}">
+                    </mat-form-field>
+                </div>
+            </ng-template>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage</mat-label>
+                    <input formControlName="Storage" matInput type="number" placeholder="Storage" min="{{0}}">
+                </mat-form-field>
+            </div>
+
+            <ng-template [ngIf]="vmNode!=null">
+                <div>
+                    <mat-form-field appearance="outline" class="full-width-field">
+                        <mat-label>RAM</mat-label>
+                        <input formControlName="RAM" matInput type="number" placeholder="RAM"
+                            max="{{vmNode.NodeRemainingRAM}}" min="{{0}}">
+                    </mat-form-field>
+                </div>
+            </ng-template>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Bandwidth</mat-label>
+                    <input formControlName="Bandwidth" matInput type="number" placeholder="Bandwidth" min="{{0}}">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>IP</mat-label>
+                    <input formControlName="IP" matInput type="text" placeholder="IP">
+                </mat-form-field>
+            </div>
+
+        </form>
+    </mat-dialog-content>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 10px;" [disabled]="vmForm.invalid" mat-raised-button color="primary"
+        (click)="addVM()">Save</button>
+</div>

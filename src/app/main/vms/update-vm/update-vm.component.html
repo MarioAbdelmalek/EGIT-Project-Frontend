@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Update VM</h1>
+<div>
+    <mat-dialog-content>
+        <form [formGroup]="vmForm">
+
+            <ng-template [ngIf]="vmNode!=null">
+                <div>
+                    <mat-form-field appearance="outline" class="full-width-field">
+                        <mat-label>CPU Cores</mat-label>
+                        <input formControlName="CPUCores" matInput type="number" placeholder="CPU Cores"
+                            max="{{vmNode.NodeRemainingCPUCores + vmToBeUpdated.CPUCores}}" min="{{0}}">
+                    </mat-form-field>
+                </div>
+            </ng-template>
+
+            <ng-template [ngIf]="vmNode!=null">
+                <div>
+                    <mat-form-field appearance="outline" class="full-width-field">
+                        <mat-label>RAM</mat-label>
+                        <input formControlName="RAM" matInput type="number" placeholder="RAM"
+                            max="{{vmNode.NodeRemainingRAM + vmToBeUpdated.RAM}}" min="{{0}}">
+                    </mat-form-field>
+                </div>
+            </ng-template>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Storage</mat-label>
+                    <input formControlName="Storage" matInput type="number" placeholder="Storage" min="{{0}}">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Lun ID</mat-label>
+                    <input formControlName="LunID" matInput type="number" placeholder="LunID" min="{{0}}">
+                </mat-form-field>
+            </div>
+
+        </form>
+    </mat-dialog-content>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 10px;" [disabled]="vmForm.invalid" mat-raised-button color="primary"
+        (click)="updateVM()">Update</button>
+</div>

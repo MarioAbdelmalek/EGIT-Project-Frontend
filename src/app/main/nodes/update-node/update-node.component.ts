@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NodeService } from '../../node.service';
+import { ClusterService } from '../../clusters/cluster.service';
+import { NodeService } from '../node.service';
 
 @Component({
   selector: 'app-update-node',
@@ -11,51 +12,61 @@ import { NodeService } from '../../node.service';
 export class UpdateNodeComponent implements OnInit {
 
   nodeForm!: FormGroup;
+  formBuilder: FormBuilder;
+  nodeService: NodeService;
+  clusterService: ClusterService;
+  clusterList: any;
 
-  constructor(private nodeService:NodeService, private formBuilder:FormBuilder,
+  constructor(formBuilder: FormBuilder, nodeService: NodeService,
+    clusterService: ClusterService,
     @Inject(MAT_DIALOG_DATA) public nodeToBeUpdated: any,
-    private dialogRef: MatDialogRef<UpdateNodeComponent
-    >) { }
+    private dialogRef: MatDialogRef<UpdateNodeComponent>) {
+    this.formBuilder = formBuilder;
+    this.nodeService = nodeService;
+    this.clusterService = clusterService;
+  }
+
+  updateNode() {
+    this.nodeService.updateNode(this.nodeToBeUpdated.NodeID, this.nodeForm.value).subscribe({
+      next: () => {
+        this.dialogRef.close();
+        location.reload();
+      },
+      error: () => {
+        alert("Error Updating The Node!!");
+      }
+    })
+
+  }
+
+  getClustersByType(type: any) {
+    this.clusterService.getClustersByType(type).subscribe({
+      next: (res) => {
+        this.clusterList = res;
+      },
+      error: () => {
+        alert("Error While Getting The Clusters!!")
+      }
+    }
+    );
+  }
 
   ngOnInit(): void {
-    this.nodeForm=this.formBuilder.group({
-      NodeName : ['', Validators.required],
-      NodeType : ['', Validators.required],
-      TotalRAM : ['', Validators.required],
-      RemainingRAM : ['', Validators.required],
-      TotalCPUCores :['', Validators.required],
-      RemainingCPUCores :['', Validators.required],
-      ClusterID :['', Validators.required],
+    this.nodeForm = this.formBuilder.group({
+      ClusterType: ['', Validators.required],
+      ClusterID: ['', Validators.required],
+      NodeName: ['', Validators.required],
+      NodeTotalRAM: ['', Validators.required],
+      NodeTotalCPUCores: ['', Validators.required]
+    });
 
-
-  });
-  
-  if(this.nodeToBeUpdated){
-    debugger;
+    if (this.nodeToBeUpdated) {
+      this.nodeForm.controls['ClusterType'].setValue(this.nodeToBeUpdated.Cluster.ClusterType);
+      //this.nodeForm.controls['ClusterID'].setValue(this.nodeToBeUpdated.Cluster.ClusterName);
       this.nodeForm.controls['NodeName'].setValue(this.nodeToBeUpdated.NodeName);
-      this.nodeForm.controls['NodeType'].setValue(this.nodeToBeUpdated.NodeType);
-      this.nodeForm.controls['TotalRAM'].setValue(this.nodeToBeUpdated.TotalRAM);
-      this.nodeForm.controls['RemainingRAM'].setValue(this.nodeToBeUpdated.RemainingRAM);
-      this.nodeForm.controls['TotalCPUCores'].setValue(this.nodeToBeUpdated.TotalCPUCores);
-      this.nodeForm.controls['RemainingCPUCores'].setValue(this.nodeToBeUpdated.RemainingCPUCores);
-      this.nodeForm.controls['ClusterID'].setValue(this.nodeToBeUpdated.ClusterID);
-
-  }
-  }
-  UpdateNode(){
-
-    debugger;
-    this.nodeService.UpdateNode(this.nodeForm.value,this.nodeToBeUpdated.NodeID).subscribe({
-        next: () => {
-          this.dialogRef.close();
-        },
-        error: () => {
-          alert("Error Updating Node!!")
-        }
-      })
-
+      this.nodeForm.controls['NodeTotalRAM'].setValue(this.nodeToBeUpdated.NodeTotalRAM);
+      this.nodeForm.controls['NodeTotalCPUCores'].setValue(this.nodeToBeUpdated.NodeTotalCPUCores);
     }
-
-
+  }
 
 }

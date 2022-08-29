@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SignalRService } from 'src/app/signal-r.service';
+import { AddClientComponent } from '../add-client/add-client.component';
 import { ClientService } from '../client.service';
 
 @Component({
@@ -41,7 +42,6 @@ export class ViewClientsComponent implements OnInit {
   getAllClients() {
     this.clientService.getAllClients().subscribe({
       next: (res) => {
-        console.log(res);
         this.clientList = res;
         this.dataSource = new MatTableDataSource(this.clientList);
         this.dataSource.paginator = this.paginator;
@@ -55,9 +55,9 @@ export class ViewClientsComponent implements OnInit {
   }
 
   openCreateClientDialog() {
-    // this.dialog.open(CreateClusterComponent, {
-    //   width: '400px'
-    // });
+    this.dialog.open(AddClientComponent, {
+      width: '400px'
+    });
   }
 
   openUpdateClientDialog(clusterToBeUpdated: any) {

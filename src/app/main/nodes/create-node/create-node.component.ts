@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { ViewLunsComponent } from '../../lun/view-luns/view-luns.component';
-import { NodeService } from '../../node.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NodeService } from '../node.service';
 
 @Component({
   selector: 'app-create-node',
@@ -12,29 +11,34 @@ import { NodeService } from '../../node.service';
 export class CreateNodeComponent implements OnInit {
 
   nodeForm!: FormGroup;
+  formBuilder: FormBuilder;
+  nodeService: NodeService;
 
-  constructor(private nodeService:NodeService,private formBuilder:FormBuilder,private dialogRef: MatDialogRef<ViewLunsComponent>) { }
-
-  ngOnInit(): void {
-    this.nodeForm=this.formBuilder.group({
-      NodeName : ['', Validators.required],
-      NodeType : ['', Validators.required],
-      TotalRAM : ['', Validators.required],
-      RemainingRAM : ['', Validators.required],
-      TotalCPUCores :['', Validators.required],
-      RemainingCPUCores :['', Validators.required],
-      ClusterID :['', Validators.required],
-    });
+  constructor(formBuilder: FormBuilder, nodeService: NodeService,
+    @Inject(MAT_DIALOG_DATA) public clusterID: any,
+    private dialogRef: MatDialogRef<CreateNodeComponent>) {
+    this.formBuilder = formBuilder;
+    this.nodeService = nodeService;
   }
 
-  CreateNode(){
-    this.nodeService.AddNode(this.nodeForm.value).subscribe({
+  addNode() {
+    this.nodeService.addNode(this.nodeForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
+        location.reload();
       },
       error: () => {
-        alert("Error Creating Node!!")
+        alert("Error Adding The Node!!")
       }
+    })
+  }
+
+  ngOnInit(): void {
+    this.nodeForm = this.formBuilder.group({
+      ClusterID: [+this.clusterID, Validators.required],
+      NodeName: ['', Validators.required],
+      NodeTotalRAM: ['', Validators.required],
+      NodeTotalCPUCores: ['', Validators.required]
     })
   }
 
