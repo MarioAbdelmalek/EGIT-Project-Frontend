@@ -1,0 +1,54 @@
+<div class="container">
+    <div style="margin-bottom: 10px;">
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ROCK" #input>
+        </mat-form-field>
+
+        <div class="mat-elevation-z8" style="text-align: center">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> VPN ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.VpnID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Username">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+                  <td mat-cell *matCellDef="let row"> {{row.Username}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="ClientID">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Client ID </th>
+                  <td mat-cell *matCellDef="let row"> {{row.ClientID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="primary" (click)="openUpdateVpnDialog(row)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="DeleteVpn(row.VpnID)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <div style="text-align: left">
+                <button mat-raised-button color="primary" style="margin-left:20px; margin-top:20px;"
+                    (click)="openCreateVpnDialog()">
+                    Add New VPN
+                </button>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of Luns"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,18 +19,13 @@ export class UpdateLunComponent implements OnInit {
   ngOnInit(): void {
     this.lunForm=this.formBuilder.group({
       LunName : ['', Validators.required],
-      LunType : ['', Validators.required],
-      LunTSpace : ['', Validators.required],
-      LunRSpace : ['', Validators.required],
-      StorageID :['', Validators.required],
+      LunTotalSpace : ['', Validators.required],
+      StorageID :[+this.lunToBeUpdated.id, Validators.required],
   });
   
   if(this.lunToBeUpdated){
-    debugger;
       this.lunForm.controls['LunName'].setValue(this.lunToBeUpdated.LunName);
-      this.lunForm.controls['LunType'].setValue(this.lunToBeUpdated.LunType);
-      this.lunForm.controls['LunTSpace'].setValue(this.lunToBeUpdated.LunTSpace);
-      this.lunForm.controls['LunRSpace'].setValue(this.lunToBeUpdated.LunRSpace);
+      this.lunForm.controls['LunTotalSpace'].setValue(this.lunToBeUpdated.LunTSpace);
       this.lunForm.controls['StorageID'].setValue(this.lunToBeUpdated.StorageID);
   }
 }

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SignalRService } from 'src/app/signal-r.service';
 import { ClusterService } from '../cluster.service';
 import { CreateClusterComponent } from '../create-cluster/create-cluster.component';
 import { UpdateClusterComponent } from '../update-cluster/update-cluster.component';
@@ -18,13 +19,13 @@ export class ViewClustersComponent implements OnInit {
   clusterList: any;
   private dialog: MatDialog;
 
-  displayedColumns: string[] = ['ClusterID', 'ClusterName', 'ClusterType', 'Action'];
+  displayedColumns: string[] = ['ClusterID', 'ClusterType', 'ClusterName', 'ClusterTotalCPUCores', 'ClusterRemainingCPUCores', 'ClusterTotalRAM', 'ClusterRemainingRAM', 'NumberOfNodes', 'Action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(clusterService: ClusterService, dialog: MatDialog) {
+  constructor(clusterService: ClusterService, dialog: MatDialog, private signalRService:SignalRService) {
     this.clusterService = clusterService;
     this.dialog = dialog;
   }
@@ -74,6 +75,11 @@ export class ViewClustersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllClusters();
+
+    this.signalRService.startConnection();
+    this.signalRService.updatedLunList.subscribe((item : any) =>{
+    this.clusterList=item;
+    })
   }
 
 }

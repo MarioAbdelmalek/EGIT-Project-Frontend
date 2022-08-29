@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CreateLunDto } from 'src/Models/CreateLunDto';
 import { Lun } from 'src/Models/lun';
 
 @Injectable({
@@ -23,10 +24,9 @@ export class LunService {
     return this.http.delete(this.APIUrl+'/Lun/deleteLun?id='+LunID);
   }
   UpdateLun(lun:Lun, id:any){
-    debugger;
     return this.http.put(this.APIUrl+'/Lun/updateLun?LunID='+id,lun);
   }
-  AddLun(lun:Lun){
+  AddLun(lun:CreateLunDto){
     return this.http.post(this.APIUrl+'/Lun/addLun',lun);
   }
 }

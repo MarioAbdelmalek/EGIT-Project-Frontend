@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { SignalRService } from 'src/app/signal-r.service';
 import { NodeService } from '../../node.service';
 import { CreateNodeComponent } from '../create-node/create-node.component';
 import { UpdateNodeComponent } from '../update-node/update-node.component';
@@ -17,11 +18,17 @@ export class ViewNodesComponent implements OnInit {
   displayedColumns: string[] = ['ID', 'Name', 'Type', 
   'Total RAM','Remaining RAM','TotaL CPU Cores',
   'Remaining CPU Cores','Cluster ID','Action'];
-  constructor(private nodeService: NodeService,private dialog : MatDialog) { }
+  constructor(private nodeService: NodeService,private dialog : MatDialog, private signalRService:SignalRService) { }
 
   ngOnInit(): void {
   this.GetAllNodes();
+
+  this.signalRService.startConnection();
+  this.signalRService.updatedLunList.subscribe((item : any) =>{
+  this.nodeList=item;
+  })
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

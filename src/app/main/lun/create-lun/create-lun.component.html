@@ -4,42 +4,20 @@
         <form [formGroup]="lunForm">
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Lun ID</mat-label>
-                    <input formControlName="LunID" matInput type="number" placeholder="Lun ID" >
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Lun Name</mat-label>
                     <input formControlName="LunName" matInput type="string" placeholder="Lun Name">
                 </mat-form-field>
             </div>
-
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Lun Type</mat-label>
-                    <input formControlName="LunType" matInput type="string" placeholder="Lun Type">
-                </mat-form-field>
-            </div>
-
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Lun Total Space</mat-label>
-                    <input formControlName="LunTSpace" matInput type="number" placeholder="Lun Total Space">
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Lun Remaining Space</mat-label>
-                    <input formControlName="LunRSpace" matInput type="number" placeholder="Lun Remaining Space" >
+                    <input formControlName="LunTotalSpace" matInput type="number" placeholder="Lun Total Space">
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Storage ID</mat-label>
-                    <input formControlName="StorageID" matInput type="number" placeholder="Storage ID" >
+                    <input formControlName="StorageID" matInput type="number" placeholder="StorageID" readonly >
                 </mat-form-field>
             </div>
         </form>

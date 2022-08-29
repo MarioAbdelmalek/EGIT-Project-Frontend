@@ -32,6 +32,18 @@ import { ClusterService } from './clusters/cluster.service';
 import { ViewNodesComponent } from './nodes/view-nodes/view-nodes.component';
 import { UpdateNodeComponent } from './nodes/update-node/update-node.component';
 import { CreateNodeComponent } from './nodes/create-node/create-node.component';
+import { ViewStoragesComponent } from './storages/view-storages/view-storages.component';
+import { CreateStorageComponent } from './storages/create-storage/create-storage.component';
+import { UpdateStorageComponent } from './storages/update-storage/update-storage.component';
+import { StorageService } from './storages/storage.service';
+import { ViewClientsComponent } from './clients/view-clients/view-clients.component';
+import { UpdateClientComponent } from './clients/update-client/update-client.component';
+import { AddClientComponent } from './clients/add-client/add-client.component';
+import { ClientService } from './clients/client.service';
+import { ViewStorageLunsComponent } from './storages/view-storage-luns/view-storage-luns.component';
+import { ViewVpnsComponent } from './vpns/view-vpns/view-vpns.component';
+import { CreateVpnComponent } from './vpns/create-vpn/create-vpn.component';
+import { UpdateVpnComponent } from './vpns/update-vpn/update-vpn.component';
 
 @NgModule({
   declarations: [
@@ -47,8 +59,17 @@ import { CreateNodeComponent } from './nodes/create-node/create-node.component';
     ViewNodesComponent,
     UpdateNodeComponent,
     CreateNodeComponent,
-    
-  ],
+    ViewStoragesComponent,
+    CreateStorageComponent,
+    UpdateStorageComponent,
+    ViewClientsComponent,
+    UpdateClientComponent,
+    AddClientComponent,
+    ViewStorageLunsComponent,
+    ViewVpnsComponent,
+    CreateVpnComponent,
+    UpdateVpnComponent
+    ],
 
   imports: [
     CommonModule,
@@ -71,6 +92,6 @@ import { CreateNodeComponent } from './nodes/create-node/create-node.component';
     MatPseudoCheckboxModule,
     FlexLayoutModule,
   ],
-  providers: [LunService,ClusterService, HttpClient, HttpClientModule]
+  providers: [LunService,ClusterService, HttpClient, HttpClientModule, ClientService, StorageService]
 })
 export class MainModule { }

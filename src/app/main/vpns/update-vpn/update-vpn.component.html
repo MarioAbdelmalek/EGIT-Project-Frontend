@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Update VPN</h1>
+<div>
+    <mat-dialog-content>
+        <form [formGroup]="vpnForm">
+            <div>
+                <mat-form-field appearance="outline" class="full-width-field">
+                    <mat-label>Username</mat-label>
+                    <input formControlName="Username" matInput type="text" placeholder="Username">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <label for="ClientID">Client Name:</label> 
+                 <mat-select formControlName="ClientID" placeholder="Client"  class="form-control">
+                  <mat-option value="">Choose Client name</mat-option>
+                  <mat-option *ngFor="let item of clientList" [value]="item.ClientID">
+                    {{ item.ClientName }}
+                  </mat-option>
+                 </mat-select>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>
+
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button style="margin-left: 10px;" [disabled]="vpnForm.invalid" mat-raised-button color="primary"
+        (click)="UpdateVpns()">Update</button>
+</div>

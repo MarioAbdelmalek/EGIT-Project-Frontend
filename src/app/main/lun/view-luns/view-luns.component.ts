@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Lun } from 'src/Models/lun';
 import { MatTableDataSource } from '@angular/material/table';
 import { LunService } from '../../lun.service';
@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateLunComponent } from '../update-lun/update-lun.component';
 import { CreateLunComponent } from '../create-lun/create-lun.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -20,6 +22,8 @@ export class ViewLunsComponent implements OnInit {
   displayedColumns: string[] = ['ID', 'Name', 'Type', 'Total Space','Remaining Space','Storage ID','Action'];
 
   constructor(private lunService :LunService, private route:Router, private dialog:MatDialog) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.GetAllLuns();
@@ -37,6 +41,8 @@ export class ViewLunsComponent implements OnInit {
     this.lunService.GetAllLuns().subscribe(data => {
       this.LunsList=data;
       this.dataSource= new MatTableDataSource(this.LunsList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

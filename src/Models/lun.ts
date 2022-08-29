@@ -3,9 +3,8 @@ export class Lun {
 
         LunID : number,
         LunName : string,
-        LunType : string,
-        LunTSpace : number,
-        LunRSpace : number,
+        LunTotalSpace : number,
+        LunRemainingSpace : number,
         StorageID : number,
      
      ) {}

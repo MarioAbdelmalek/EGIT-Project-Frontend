@@ -27,7 +27,7 @@ export class CreateClusterComponent implements OnInit {
         location.reload();
       },
       error: () => {
-        alert("Error Creating The Cluster!!")
+        alert("Error Adding The Cluster!!")
       }
     })
   }
