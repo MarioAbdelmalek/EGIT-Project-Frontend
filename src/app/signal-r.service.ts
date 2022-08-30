@@ -22,7 +22,7 @@ export class SignalRService {
     public startConnection = () => {
         this.hubConnection = new signalR.HubConnectionBuilder()
             //.configureLogging(signalR.LogLevel.Debug)
-            .withUrl('https://localhost:44334/EGITUpdates')
+            .withUrl('https://localhost:5001/EGITUpdates')
             .build();
         this.hubConnection.on('UpdatedLuns', (data) => {
             this.updatedLunList.next(JSON.parse(data));

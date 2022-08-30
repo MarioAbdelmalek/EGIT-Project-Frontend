@@ -1,7 +1,3 @@
-button{
-    margin-right: 5%;
-    margin-left: 5%;
-}
 .sticky {
     padding: 0px;
     position: fixed;
@@ -17,5 +13,4 @@ button{
 
 .nav-texts {
     font-size: 17px;
-
 }
