@@ -56,7 +56,7 @@ export class ViewClustersComponent implements OnInit {
   }
 
   viewClusterNodes(clusterID: any) {
-    
+    debugger;
     this.router.navigate(['viewClusterNodes', clusterID]);
   }
 

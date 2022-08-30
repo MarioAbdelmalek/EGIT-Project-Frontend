@@ -9,7 +9,7 @@ import { Lun } from 'src/Models/lun';
 })
 export class LunService {
 
-  readonly APIUrl = "https://localhost:5001/api";
+  readonly APIUrl = "https://localhost:44334/api";
 
   constructor(private http:HttpClient) { }
 

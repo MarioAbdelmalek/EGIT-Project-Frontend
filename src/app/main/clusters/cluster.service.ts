@@ -10,22 +10,22 @@ export class ClusterService {
     }
 
     getAllClusters(): Observable<any> {
-        return this.http.get('https://localhost:5001/api/Cluster/getAllClusters');
+        return this.http.get('https://localhost:44334/api/Cluster/getAllClusters');
     }
 
     getClustersByType(type: any): Observable<any> {
-        return this.http.get('https://localhost:5001/api/Cluster/getClustersByType?ClusterType=' + type);
+        return this.http.get('https://localhost:44334/api/Cluster/getClustersByType?ClusterType=' + type);
     }
 
     addCluster(data: any) {
-        return this.http.post('https://localhost:5001/api/Cluster/addCluster', data);
+        return this.http.post('https://localhost:44334/api/Cluster/addCluster', data);
     }
 
     deleteCluster(id: any): Observable<any> {
-        return this.http.delete('https://localhost:5001/api/Cluster/deleteCluster?ClusterID=' + id);
+        return this.http.delete('https://localhost:44334/api/Cluster/deleteCluster?ClusterID=' + id);
     }
 
     updateCluster(id: number, data: any) {
-        return this.http.put('https://localhost:5001/api/Cluster/updateCluster?ClusterID=' + id, data);
+        return this.http.put('https://localhost:44334/api/Cluster/updateCluster?ClusterID=' + id, data);
     }
 }
