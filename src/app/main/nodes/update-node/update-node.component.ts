@@ -51,6 +51,16 @@ export class UpdateNodeComponent implements OnInit {
     );
   }
 
+  populateUpdateNodeForm() {
+    if (this.nodeToBeUpdated) {
+      this.nodeForm.controls['ClusterType'].setValue(this.nodeToBeUpdated.Cluster.ClusterType);
+      //this.nodeForm.controls['ClusterID'].setValue(this.nodeToBeUpdated.ClusterID);
+      this.nodeForm.controls['NodeName'].setValue(this.nodeToBeUpdated.NodeName);
+      this.nodeForm.controls['NodeTotalRAM'].setValue(this.nodeToBeUpdated.NodeTotalRAM);
+      this.nodeForm.controls['NodeTotalCPUCores'].setValue(this.nodeToBeUpdated.NodeTotalCPUCores);
+    }
+  }
+
   ngOnInit(): void {
     this.nodeForm = this.formBuilder.group({
       ClusterType: ['', Validators.required],
@@ -60,13 +70,7 @@ export class UpdateNodeComponent implements OnInit {
       NodeTotalCPUCores: ['', Validators.required]
     });
 
-    if (this.nodeToBeUpdated) {
-      this.nodeForm.controls['ClusterType'].setValue(this.nodeToBeUpdated.Cluster.ClusterType);
-      //this.nodeForm.controls['ClusterID'].setValue(this.nodeToBeUpdated.Cluster.ClusterName);
-      this.nodeForm.controls['NodeName'].setValue(this.nodeToBeUpdated.NodeName);
-      this.nodeForm.controls['NodeTotalRAM'].setValue(this.nodeToBeUpdated.NodeTotalRAM);
-      this.nodeForm.controls['NodeTotalCPUCores'].setValue(this.nodeToBeUpdated.NodeTotalCPUCores);
-    }
+    this.populateUpdateNodeForm();
   }
 
 }
