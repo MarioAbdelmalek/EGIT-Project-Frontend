@@ -83,7 +83,7 @@ export class ViewClusterNodesComponent implements OnInit {
       next: (res) => {
         if (res.IsValid === false) {
           alert("Cannot Delete This Node, Please Delete Its VMs First!");
-          // this.router.navigate(['viewClusterNodes', id]);
+          this.router.navigate(['viewNodeVMs', id]);
         }
 
         else {
