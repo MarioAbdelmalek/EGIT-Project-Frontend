@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClientService } from '../../clients/client.service';
+import { LunService } from '../../luns/lun.service';
 import { NodeService } from '../../nodes/node.service';
 import { VMService } from '../vm.service';
 
@@ -17,17 +18,19 @@ export class CreateVMComponent implements OnInit {
   vmService: VMService;
   clientService: ClientService;
   nodeService: NodeService;
+  lunService: LunService;
   clientList: any;
   vmNode: any;
-  //lunList: any;
+  lunList: any;
 
-  constructor(formBuilder: FormBuilder, vmService: VMService, clientService: ClientService, nodeService: NodeService,
+  constructor(formBuilder: FormBuilder, vmService: VMService, lunService: LunService, clientService: ClientService, nodeService: NodeService,
     @Inject(MAT_DIALOG_DATA) public nodeID: any,
     private dialogRef: MatDialogRef<CreateVMComponent>) {
     this.formBuilder = formBuilder;
     this.vmService = vmService;
     this.clientService = clientService;
     this.nodeService = nodeService;
+    this.lunService = lunService;
   }
 
   addVM() {
@@ -66,33 +69,33 @@ export class CreateVMComponent implements OnInit {
     );
   }
 
-  // getAllLuns() {
-  //   this.lunService.getAllLuns().subscribe({
-  //     next: (res: any) => {
-  //       this.lunList = res;
-  //     },
-  //     error: () => {
-  //       alert("Error While Fetching The Luns!!")
-  //     }
-  //   }
-  //   );
-  // }
+  getAllLuns() {
+    this.lunService.getAllLuns().subscribe({
+      next: (res: any) => {
+        this.lunList = res;
+      },
+      error: () => {
+        alert("Error While Fetching The Luns!!")
+      }
+    }
+    );
+  }
 
   ngOnInit(): void {
     this.getAllClients();
+    this.getAllLuns();
     this.getNodeByID(this.nodeID);
 
     this.vmForm = this.formBuilder.group({
       NodeID: [+this.nodeID, Validators.required],
       ClientID: ['', Validators.required],
-      LunID: [4, Validators.required],
+      LunID: ['', Validators.required],
       CPUCores: ['', Validators.required],
       Storage: ['', Validators.required],
       RAM: ['', Validators.required],
       Bandwidth: ['', Validators.required],
       IP: ['', Validators.required]
     })
-    //this.getAllLuns();
   }
 
 }

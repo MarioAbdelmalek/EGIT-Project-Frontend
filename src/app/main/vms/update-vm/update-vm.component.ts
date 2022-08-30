@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LunService } from '../../luns/lun.service';
 import { NodeService } from '../../nodes/node.service';
 import { VMService } from '../vm.service';
 
@@ -14,18 +15,21 @@ export class UpdateVMComponent implements OnInit {
   vmForm!: FormGroup;
   formBuilder: FormBuilder;
   nodeService: NodeService;
+  lunService: LunService;
   vmService: VMService;
   vmNode: any;
   vmToBeUpdated: any;
+  lunList: any;
 
 
-  constructor(formBuilder: FormBuilder, nodeService: NodeService,
+  constructor(formBuilder: FormBuilder, nodeService: NodeService, lunService: LunService,
     vmService: VMService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<UpdateVMComponent>) {
     this.formBuilder = formBuilder;
     this.nodeService = nodeService;
     this.vmService = vmService;
+    this.lunService = lunService;
   }
 
   updateVM() {
@@ -42,6 +46,19 @@ export class UpdateVMComponent implements OnInit {
     })
   }
 
+  getAllLuns() {
+    this.lunService.getAllLuns().subscribe({
+      next: (res: any) => {
+        this.lunList = res;
+        this.populateUpdateForm();
+      },
+      error: () => {
+        alert("Error While Fetching The Luns!!")
+      }
+    }
+    );
+  }
+
   getNodeByID(nodeID: any) {
     this.nodeService.getNodeByID(nodeID).subscribe({
       next: (res: any) => {
@@ -54,9 +71,19 @@ export class UpdateVMComponent implements OnInit {
     );
   }
 
+  populateUpdateForm() {
+    if (this.data) {
+      this.vmForm.controls['CPUCores'].setValue(this.data['vmToBeUpdated'].CPUCores);
+      this.vmForm.controls['RAM'].setValue(this.data['vmToBeUpdated'].RAM);
+      this.vmForm.controls['Storage'].setValue(this.data['vmToBeUpdated'].Storage);
+      this.vmForm.controls['LunID'].setValue(this.data['vmToBeUpdated'].LunID);
+    }
+  }
+
   ngOnInit(): void {
     this.vmToBeUpdated = this.data['vmToBeUpdated'];
     this.getNodeByID(this.data['VMNodeID']);
+    this.getAllLuns();
 
     this.vmForm = this.formBuilder.group({
       CPUCores: ['', Validators.required],
@@ -64,13 +91,6 @@ export class UpdateVMComponent implements OnInit {
       Storage: ['', Validators.required],
       LunID: ['', Validators.required]
     });
-
-    if (this.data) {
-      this.vmForm.controls['CPUCores'].setValue(this.data['vmToBeUpdated'].CPUCores);
-      this.vmForm.controls['RAM'].setValue(this.data['vmToBeUpdated'].RAM);
-      this.vmForm.controls['Storage'].setValue(this.data['vmToBeUpdated'].Storage);
-      this.vmForm.controls['LunID'].setValue(this.data['vmToBeUpdated'].LunID);
-    }
   }
 
 }

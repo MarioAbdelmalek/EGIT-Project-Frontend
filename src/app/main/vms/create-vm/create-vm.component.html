@@ -20,21 +20,14 @@
                 </mat-form-field>
             </div>
 
-            <!-- <div>
+            <div>
                 <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Lun Name</mat-label>
-                    <mat-select placeholder="Lun ID" formControlName="LunID">
+                    <mat-select placeholder="Lun Name" formControlName="LunID">
                         <mat-option *ngFor="let lun of lunList" [value]="lun.LunID">
                             {{lun.LunName}}
                         </mat-option>
                     </mat-select>
-                </mat-form-field>
-            </div> -->
-
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Lun ID</mat-label>
-                    <input formControlName="LunID" matInput type="number" placeholder="Lun ID" [readonly]="true">
                 </mat-form-field>
             </div>
 
