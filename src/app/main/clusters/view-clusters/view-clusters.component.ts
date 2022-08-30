@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { SignalRService } from '../../signalR.service';
 import { ClusterService } from '../cluster.service';
 import { CreateClusterComponent } from '../create-cluster/create-cluster.component';
 import { UpdateClusterComponent } from '../update-cluster/update-cluster.component';
@@ -18,6 +19,7 @@ export class ViewClustersComponent implements OnInit {
   clusterService: ClusterService;
   clusterList: any;
   private dialog: MatDialog;
+  signalRService: SignalRService;
 
   displayedColumns: string[] = ['ClusterID', 'ClusterType', 'ClusterName', 'ClusterRemainingRAM', 'ClusterRemainingCPUCores', 'Nodes', 'Action'];
   dataSource!: MatTableDataSource<any>;
@@ -25,9 +27,10 @@ export class ViewClustersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(clusterService: ClusterService, dialog: MatDialog, private router: Router) {
+  constructor(clusterService: ClusterService, dialog: MatDialog, private router: Router, signalRService: SignalRService) {
     this.clusterService = clusterService;
     this.dialog = dialog;
+    this.signalRService = signalRService;
   }
 
   applyFilter(event: Event) {
@@ -92,6 +95,28 @@ export class ViewClustersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllClusters();
+
+    this.signalRService.startConnection();
+    this.signalRService.updatedClusterList.subscribe((item: any) => {
+      for (var cluster of item) {
+
+        var oldCluster = this.clusterList.find((obj: { ClusterID: any; }) => {
+          return obj.ClusterID == cluster.ClusterID;
+        });
+        if (oldCluster != null) {
+          var clusterIndex = this.clusterList.indexOf(oldCluster);
+          this.clusterList[clusterIndex] = cluster;
+        }
+        else {
+          this.clusterList.push(cluster);
+        }
+      }
+
+      this.dataSource = new MatTableDataSource(this.clusterList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    });
   }
 
 }

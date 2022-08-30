@@ -35,9 +35,8 @@ export class CreateVMComponent implements OnInit {
 
   addVM() {
     this.vmService.addVM(this.vmForm.value).subscribe({
-      next: (res) => {
+      next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Adding The VM!!")

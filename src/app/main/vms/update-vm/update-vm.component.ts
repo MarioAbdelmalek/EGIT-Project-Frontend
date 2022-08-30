@@ -35,10 +35,8 @@ export class UpdateVMComponent implements OnInit {
   updateVM() {
     debugger;
     this.vmService.updateVM(this.vmToBeUpdated.VMID, this.vmForm.value).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Updating The VM!!");
