@@ -10,11 +10,11 @@ export class ClusterService {
     }
 
     getAllClusters(): Observable<any> {
-        return this.http.get('https://localhost:44334/api/Cluster/getAllClusters');
+        return this.http.get('https://localhost:5001/api/Cluster/getAllClusters');
     }
 
     getClustersByType(type: any): Observable<any> {
-        return this.http.get('https://localhost:44334/api/Cluster/getClustersByType?ClusterType=' + type);
+        return this.http.get('https://localhost:5001/api/Cluster/getClustersByType?ClusterType=' + type);
     }
 
     addCluster(data: any) {

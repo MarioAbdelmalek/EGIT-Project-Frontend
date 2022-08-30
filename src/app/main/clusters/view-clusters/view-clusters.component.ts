@@ -94,10 +94,6 @@ export class ViewClustersComponent implements OnInit {
   ngOnInit(): void {
     this.getAllClusters();
 
-    this.signalRService.startConnection();
-    this.signalRService.updatedLunList.subscribe((item : any) =>{
-    this.clusterList=item;
-    })
   }
 
 }

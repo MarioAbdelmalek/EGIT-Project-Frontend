@@ -29,7 +29,6 @@ import { ViewClustersComponent } from './clusters/view-clusters/view-clusters.co
 import { CreateClusterComponent } from './clusters/create-cluster/create-cluster.component';
 import { UpdateClusterComponent } from './clusters/update-cluster/update-cluster.component';
 import { ClusterService } from './clusters/cluster.service';
-import { ViewNodesComponent } from './nodes/view-nodes/view-nodes.component';
 import { ViewStoragesComponent } from './storages/view-storages/view-storages.component';
 import { CreateStorageComponent } from './storages/create-storage/create-storage.component';
 import { UpdateStorageComponent } from './storages/update-storage/update-storage.component';
@@ -50,6 +49,7 @@ import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.componen
 import { CreateVMComponent } from './vms/create-vm/create-vm.component';
 import { UpdateVMComponent } from './vms/update-vm/update-vm.component';
 import { VMService } from './vms/vm.service';
+import { VpnService } from './vpns/vpn.service';
 
 
 @NgModule({
@@ -63,7 +63,6 @@ import { VMService } from './vms/vm.service';
     ViewClustersComponent,
     CreateClusterComponent,
     UpdateClusterComponent,
-    ViewNodesComponent,
     UpdateNodeComponent,
     CreateNodeComponent,
     ViewStoragesComponent,
@@ -104,6 +103,6 @@ import { VMService } from './vms/vm.service';
     MatPseudoCheckboxModule,
     FlexLayoutModule,
   ],
-  providers: [LunService,ClusterService, HttpClient, HttpClientModule, ClientService, StorageService,NodeService,VMService]
+  providers: [LunService,ClusterService, HttpClient, HttpClientModule, ClientService, StorageService,NodeService,VMService,VpnService]
 })
 export class MainModule { }
