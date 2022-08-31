@@ -18,9 +18,11 @@ export class CreateLunComponent implements OnInit {
 
   constructor(private lunService:LunService,private formBuilder:FormBuilder,
     private dialogRef: MatDialogRef<ViewStorageLunsComponent>,private storageService:StorageService,
-    @Inject(MAT_DIALOG_DATA) public id: number) { }
+    @Inject(MAT_DIALOG_DATA) public id: any) { }
 
   ngOnInit(): void {
+
+    this.getStorageByID(this.id);
     this.lunForm=this.formBuilder.group({
       LunName : ['', Validators.required],
       LunTotalSpace : ['', Validators.required],
@@ -40,8 +42,8 @@ export class CreateLunComponent implements OnInit {
     })
   }
 
-  getStorageByID(){
-    this.storageService.getStorageByID(this.id).subscribe((res)=>{
+  getStorageByID(StorageID:any){
+    this.storageService.getStorageByID(StorageID).subscribe((res)=>{
       this.StorageLun=res;
     })
   }

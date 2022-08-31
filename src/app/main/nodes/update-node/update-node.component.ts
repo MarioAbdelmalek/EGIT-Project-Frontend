@@ -30,7 +30,6 @@ export class UpdateNodeComponent implements OnInit {
     this.nodeService.updateNode(this.nodeToBeUpdated.NodeID, this.nodeForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Updating The Node!!");

@@ -25,7 +25,6 @@ export class CreateNodeComponent implements OnInit {
     this.nodeService.addNode(this.nodeForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Adding The Node!!")

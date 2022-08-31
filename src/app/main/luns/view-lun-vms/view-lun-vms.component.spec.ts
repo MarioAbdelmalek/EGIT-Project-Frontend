@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewLunsComponent } from './view-luns.component';
+import { ViewLunVmsComponent } from './view-lun-vms.component';
 
-describe('ViewLunsComponent', () => {
-  let component: ViewLunsComponent;
-  let fixture: ComponentFixture<ViewLunsComponent>;
+describe('ViewLunVmsComponent', () => {
+  let component: ViewLunVmsComponent;
+  let fixture: ComponentFixture<ViewLunVmsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewLunsComponent ]
+      declarations: [ ViewLunVmsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewLunsComponent);
+    fixture = TestBed.createComponent(ViewLunVmsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

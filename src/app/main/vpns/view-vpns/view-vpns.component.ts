@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { SignalRService } from 'src/app/signal-r.service';
+import { SignalRService } from '../../signalR.service';
 import { CreateVpnComponent } from '../create-vpn/create-vpn.component';
 import { UpdateVpnComponent } from '../update-vpn/update-vpn.component';
 import { VpnService } from '../vpn.service';
@@ -30,9 +30,26 @@ export class ViewVpnsComponent implements OnInit {
     this.GetAllVpns();
 
     this.signalRService.startConnection();
-    this.signalRService.updatedLunList.subscribe((item : any) =>{
-    this.vpnsList=item;
-    })
+    this.signalRService.updatedVPNList.subscribe((item: any) => {
+      for (var vpn of item) {
+
+        var oldVpn = this.vpnsList.find((obj: { VpnID: any; }) => {
+          return obj.VpnID == vpn.VpnID;
+        });
+        if (oldVpn != null) {
+          var VpnIndex = this.vpnsList.indexOf(oldVpn);
+          this.vpnsList[VpnIndex] = vpn;
+        }
+        else {
+          this.vpnsList.push(vpn);
+        }
+      }
+
+      this.dataSource = new MatTableDataSource(this.vpnsList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -54,7 +71,6 @@ export class ViewVpnsComponent implements OnInit {
 
   DeleteVpn(VpnID : number){
     this.vpnService.DeleteVpn(VpnID).subscribe((res)=>{
-      console.log(res);
     });
   }
 

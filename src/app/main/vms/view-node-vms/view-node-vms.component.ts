@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SignalRService } from '../../signalR.service';
 import { CreateVMComponent } from '../create-vm/create-vm.component';
 import { UpdateVMComponent } from '../update-vm/update-vm.component';
 import { VMService } from '../vm.service';
@@ -19,6 +20,7 @@ export class ViewNodeVMsComponent implements OnInit {
   vmService: VMService;
   nodeVMsList: any;
   private dialog: MatDialog;
+  signalRService: SignalRService;
 
 
   displayedColumns: string[] = ['VMID', 'ClientID', 'LunID', 'RAM', 'CPUCores', 'Storage', 'IP', 'Bandwidth', 'Action'];
@@ -28,8 +30,9 @@ export class ViewNodeVMsComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private route: ActivatedRoute, vmService: VMService, dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, vmService: VMService, dialog: MatDialog, signalRService: SignalRService, private router: Router) {
     this.vmService = vmService;
+    this.signalRService = signalRService;
     this.dialog = dialog;
   }
 
@@ -80,6 +83,28 @@ export class ViewNodeVMsComponent implements OnInit {
   ngOnInit(): void {
     this.nodeID = this.route.snapshot.paramMap.get("nodeID");
     this.getNodeVMs(this.nodeID);
+
+    this.signalRService.startConnection();
+    this.signalRService.updatedVMList.subscribe((item: any) => {
+      for (var vm of item) {
+        var oldVM = this.nodeVMsList.find((obj: { VMID: any; }) => {
+          return obj.VMID == vm.VMID;
+        });
+
+        if (oldVM != null) {
+          var vmIndex = this.nodeVMsList.indexOf(oldVM);
+          this.nodeVMsList[vmIndex] = vm;
+        }
+        else {
+          this.nodeVMsList.push(vm);
+        }
+      }
+
+      this.dataSource = new MatTableDataSource(this.nodeVMsList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    });
   }
 
 }

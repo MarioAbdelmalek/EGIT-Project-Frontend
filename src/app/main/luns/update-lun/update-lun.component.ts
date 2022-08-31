@@ -19,6 +19,8 @@ export class UpdateLunComponent implements OnInit {
     private dialogRef: MatDialogRef<UpdateLunComponent>){}
 
   ngOnInit(): void {
+    this.getStorageByID();
+
     this.lunForm=this.formBuilder.group({
       LunName : ['', Validators.required],
       LunTotalSpace : ['', Validators.required],
@@ -27,15 +29,14 @@ export class UpdateLunComponent implements OnInit {
   
   if(this.lunToBeUpdated){
       this.lunForm.controls['LunName'].setValue(this.lunToBeUpdated.LunName);
-      this.lunForm.controls['LunTotalSpace'].setValue(this.lunToBeUpdated.LunTSpace);
+      this.lunForm.controls['LunTotalSpace'].setValue(this.lunToBeUpdated.LunTotalSpace);
       this.lunForm.controls['StorageID'].setValue(this.lunToBeUpdated.StorageID);
   }
 }
 
   UpdateLun(){
 
-    debugger;
-    this.lunService.updateLun(this.lunForm.value,this.lunToBeUpdated.LunID).subscribe({
+    this.lunService.updateLun(this.lunToBeUpdated.LunID,this.lunForm.value).subscribe({
         next: () => {
           this.dialogRef.close();
         },

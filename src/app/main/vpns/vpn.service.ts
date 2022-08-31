@@ -20,7 +20,7 @@ export class VpnService {
   }
 
   DeleteVpn(VpnID:number){
-    return this.http.delete(this.APIUrl+'/Vpn/deleteVPN?id='+VpnID);
+    return this.http.delete(this.APIUrl+'/Vpn/deleteVPN?VpnID='+VpnID);
   }
   UpdateVpn(id:any,Vpn:any){
     return this.http.put(this.APIUrl+'/Vpn/updateVPN?VpnID='+id,Vpn);

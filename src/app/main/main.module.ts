@@ -33,53 +33,53 @@ import { ViewClientsComponent } from './clients/view-clients/view-clients.compon
 import { UpdateClientComponent } from './clients/update-client/update-client.component';
 import { AddClientComponent } from './clients/add-client/add-client.component';
 import { ClientService } from './clients/client.service';
-import { ViewStorageLunsComponent } from './storages/view-storage-luns/view-storage-luns.component';
 import { ViewVpnsComponent } from './vpns/view-vpns/view-vpns.component';
 import { CreateVpnComponent } from './vpns/create-vpn/create-vpn.component';
 import { UpdateVpnComponent } from './vpns/update-vpn/update-vpn.component';
-import { ViewClusterNodesComponent } from './nodes/view-cluster-nodes/view-cluster-nodes.component';
-import { UpdateNodeComponent } from './nodes/update-node/update-node.component';
-import { CreateNodeComponent } from './nodes/create-node/create-node.component';
 import { NodeService } from './nodes/node.service';
-import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.component';
 import { CreateVMComponent } from './vms/create-vm/create-vm.component';
 import { UpdateVMComponent } from './vms/update-vm/update-vm.component';
 import { VMService } from './vms/vm.service';
 import { VpnService } from './vpns/vpn.service';
 import { UpdateLunComponent } from './luns/update-lun/update-lun.component';
-import { ViewLunsComponent } from './luns/view-luns/view-luns.component';
 import { LunService } from './luns/lun.service';
 import { TokenInterceptorService } from '../users/token-interceptor.service';
+import { ViewStorageLunsComponent } from './storages/view-storage-luns/view-storage-luns.component';
+import { ViewClusterNodesComponent } from './nodes/view-cluster-nodes/view-cluster-nodes.component';
+import { ViewNodeVMsComponent } from './vms/view-node-vms/view-node-vms.component';
+import { CreateNodeComponent } from './nodes/create-node/create-node.component';
+import { UpdateNodeComponent } from './nodes/update-node/update-node.component';
+import { ViewLunVmsComponent } from './luns/view-lun-vms/view-lun-vms.component';
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    ViewLunsComponent,
     UpdateLunComponent,
     CreateLunComponent,
     HomePageComponent,
     ViewClustersComponent,
     CreateClusterComponent,
     UpdateClusterComponent,
-    UpdateNodeComponent,
-    CreateNodeComponent,
     ViewStoragesComponent,
     CreateStorageComponent,
     UpdateStorageComponent,
     ViewClientsComponent,
     UpdateClientComponent,
     AddClientComponent,
-    ViewStorageLunsComponent,
     ViewVpnsComponent,
     CreateVpnComponent,
     UpdateVpnComponent,
-    ViewClusterNodesComponent,
-    UpdateNodeComponent,
-    CreateNodeComponent,
-    ViewNodeVMsComponent,
     CreateVMComponent,
-    UpdateVMComponent
+    UpdateVMComponent,
+    ViewStorageLunsComponent,
+    ViewClusterNodesComponent,
+    ViewNodeVMsComponent,
+    CreateNodeComponent,
+    UpdateNodeComponent,
+    ViewLunVmsComponent
+
+ 
   ],
   imports: [
     CommonModule,

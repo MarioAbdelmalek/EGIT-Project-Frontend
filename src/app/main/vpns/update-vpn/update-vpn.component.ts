@@ -33,7 +33,6 @@ export class UpdateVpnComponent implements OnInit {
     this.vpnService.UpdateVpn(this.vpnToBeUpdated.VpnID, this.vpnForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Updating The Vpn!!")

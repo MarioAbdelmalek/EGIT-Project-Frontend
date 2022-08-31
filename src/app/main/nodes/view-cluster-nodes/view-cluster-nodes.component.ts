@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SignalRService } from '../../signalR.service';
 import { CreateNodeComponent } from '../create-node/create-node.component';
 import { NodeService } from '../node.service';
 import { UpdateNodeComponent } from '../update-node/update-node.component';
@@ -19,6 +20,7 @@ export class ViewClusterNodesComponent implements OnInit {
   nodeService: NodeService;
   clusterNodesList: any;
   private dialog: MatDialog;
+  signalRService: SignalRService;
 
 
   displayedColumns: string[] = ['NodeID', 'NodeName', 'NodeTotalRAM', 'NodeRemainingRAM', 'NodeTotalCPUCores', 'NodeRemainingCPUCores', 'VMs', 'Action'];
@@ -28,9 +30,10 @@ export class ViewClusterNodesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private route: ActivatedRoute, nodeService: NodeService, dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, nodeService: NodeService, signalRService: SignalRService, dialog: MatDialog, private router: Router) {
     this.nodeService = nodeService;
     this.dialog = dialog;
+    this.signalRService = signalRService;
   }
 
   applyFilter(event: Event) {
@@ -58,7 +61,7 @@ export class ViewClusterNodesComponent implements OnInit {
   }
 
   viewNodeVMs(nodeID: any) {
-    this.router.navigate(['viewNodeVMs', nodeID]);
+    this.router.navigate(['home/viewNodeVMs', nodeID]);
   }
 
   openCreateNodeDialog() {
@@ -80,7 +83,7 @@ export class ViewClusterNodesComponent implements OnInit {
       next: (res) => {
         if (res.IsValid === false) {
           alert("Cannot Delete This Node, Please Delete Its VMs First!");
-          // this.router.navigate(['viewClusterNodes', id]);
+          this.router.navigate(['home/viewNodeVMs', id]);
         }
 
         else {
@@ -95,8 +98,30 @@ export class ViewClusterNodesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clusterID = this.route.snapshot.paramMap.get("clusterID");
+    this.clusterID = this.route.snapshot.paramMap.get('clusterID');
     this.getClusterNodes(this.clusterID);
+
+    this.signalRService.startConnection();
+    this.signalRService.updatedNodeList.subscribe((item: any) => {
+      for (var node of item) {
+
+        var oldNode = this.clusterNodesList.find((obj: { NodeID: any; }) => {
+          return obj.NodeID == node.NodeID;
+        });
+        if (oldNode != null) {
+          var nodeIndex = this.clusterNodesList.indexOf(oldNode);
+          this.clusterNodesList[nodeIndex] = node;
+        }
+        else {
+          this.clusterNodesList.push(node);
+        }
+      }
+
+      this.dataSource = new MatTableDataSource(this.clusterNodesList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    });
   }
 
 }

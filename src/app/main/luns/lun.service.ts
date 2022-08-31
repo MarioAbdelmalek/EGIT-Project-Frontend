@@ -16,6 +16,9 @@ export class LunService {
     getLunByID(id: any): Observable<any> {
         return this.http.get('https://localhost:44334/api/Lun/getLun?id=' + id);
     }
+    getLunVMs(id: any): Observable<any> {
+        return this.http.get('https://localhost:44334/api/Lun/getLunVms?LunID=' + id);
+    }
 
     deleteLun(id: number) {
         return this.http.delete('https://localhost:44334/api/Lun/deleteLun?id=' + id);

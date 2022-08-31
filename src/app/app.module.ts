@@ -21,6 +21,7 @@ import { TokenInterceptorService } from './users/token-interceptor.service';
 import { UserLoginComponent } from './users/user-login/user-login.component';
 import { UserService } from './users/user.service';
 import { MainComponent } from './main/main.component';
+import { AuthguardService } from './authguard.service';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { MainComponent } from './main/main.component';
     FlexLayoutModule,
 
   ],
-  providers: [HttpClient, UserService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
+  providers: [HttpClient, UserService, AuthguardService,{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

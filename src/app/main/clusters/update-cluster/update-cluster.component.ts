@@ -25,7 +25,6 @@ export class UpdateClusterComponent implements OnInit {
     this.clusterService.updateCluster(this.clusterToBeUpdated.ClusterID, this.clusterForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Updating The Cluster!!")

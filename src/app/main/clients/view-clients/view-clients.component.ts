@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SignalRService } from 'src/app/signal-r.service';
+import { SignalRService } from '../../signalR.service';
 import { AddClientComponent } from '../add-client/add-client.component';
 import { ClientService } from '../client.service';
 

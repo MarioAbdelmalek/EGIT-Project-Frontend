@@ -24,7 +24,6 @@ export class CreateClusterComponent implements OnInit {
     this.clusterService.addCluster(this.clusterForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Adding The Cluster!!")

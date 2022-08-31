@@ -14,7 +14,7 @@
 
                 <ng-container matColumnDef="Name">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                  <td mat-cell *matCellDef="let row"> {{row.LunName}} </td>
+                  <td mat-cell *matCellDef="let row"><a [routerLink]="['viewLunVMs',row.LunID]" routerLinkActive="router-link-active" >{{row.LunName}}</a></td>
                 </ng-container>
               
                 <ng-container matColumnDef="Type">

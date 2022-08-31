@@ -13,7 +13,7 @@ export class StorageService {
         return this.http.get('https://localhost:44334/api/Storage/getAll');
     }
     getStorageByID(id:any): Observable<any>{
-        return this.http.get('https://localhost:44334/api/Storage/getById?=id'+id);
+        return this.http.get('https://localhost:44334/api/Storage/getById?id='+id);
     }
     getStorageLuns(id: any):Observable<any>{
         return this.http.get('https://localhost:44334/api/Storage/getStorageLuns?StorageID='+id);

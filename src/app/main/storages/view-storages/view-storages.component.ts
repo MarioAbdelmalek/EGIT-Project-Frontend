@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { SignalRService } from 'src/app/signal-r.service';
+import { SignalRService } from '../../signalR.service';
 import { CreateStorageComponent } from '../create-storage/create-storage.component';
 import { StorageService } from '../storage.service';
 import { UpdateStorageComponent } from '../update-storage/update-storage.component';
@@ -78,13 +78,26 @@ export class ViewStoragesComponent implements OnInit {
     this.getAllStorages();
 
     this.signalRService.startConnection();
-    this.signalRService.updatedStorageList.subscribe((item : any) =>{
-      this.storageList=item;
+    this.signalRService.updatedStorageList.subscribe((item: any) => {
+      for (var storage of item) {
+
+        var oldStorage = this.storageList.find((obj: { StorageID: any; }) => {
+          return obj.StorageID == storage.StorageID;
+        });
+        if (oldStorage != null) {
+          var storageIndex = this.storageList.indexOf(oldStorage);
+          this.storageList[storageIndex] = storage;
+        }
+        else {
+          this.storageList.push(storage);
+        }
+      }
+
       this.dataSource = new MatTableDataSource(this.storageList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      
-    }) 
+
+    });
    
   }
 }
