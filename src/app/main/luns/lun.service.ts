@@ -25,7 +25,7 @@ export class LunService {
         return this.http.put('https://localhost:44334/api/Lun/updateLun?LunID=' + id, data);
     }
 
-    addNode(data: any) {
+    addLun(data: any) {
         return this.http.post('https://localhost:44334/api/Lun/addLun', data);
     }
 }

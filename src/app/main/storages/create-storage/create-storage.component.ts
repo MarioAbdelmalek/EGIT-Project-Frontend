@@ -24,7 +24,6 @@ export class CreateStorageComponent implements OnInit {
     this.storageService.addStorage(this.storageForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Adding The Storage!!")

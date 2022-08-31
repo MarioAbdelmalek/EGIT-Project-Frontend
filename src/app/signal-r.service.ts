@@ -15,19 +15,17 @@ export class SignalRService {
     public updatedVMList :Subject<any> = new Subject<any>();
     public updatedVPNList :Subject<any> = new Subject<any>();
     public updatedClientList :Subject<any> = new Subject<any>();
-
-
     private hubConnection!: signalR.HubConnection;
 
     public startConnection = () => {
         this.hubConnection = new signalR.HubConnectionBuilder()
             //.configureLogging(signalR.LogLevel.Debug)
-            .withUrl('https://localhost:5001/EGITUpdates')
+            .withUrl('https://localhost:44334/EGITUpdates')
             .build();
         this.hubConnection.on('UpdatedLuns', (data) => {
             this.updatedLunList.next(JSON.parse(data));
         });
-       this.hubConnection.on('UpdatedStorages', (data) => {
+       this.hubConnection.on('updatedstorages', (data) => {
             this.updatedStorageList.next(JSON.parse(data));
             
         });

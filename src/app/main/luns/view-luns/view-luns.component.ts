@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Lun } from 'src/Models/lun';
 import { MatTableDataSource } from '@angular/material/table';
-import { LunService } from '../../lun.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateLunComponent } from '../update-lun/update-lun.component';
 import { CreateLunComponent } from '../create-lun/create-lun.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { LunService } from '../lun.service';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class ViewLunsComponent implements OnInit {
     }
   }
   GetAllLuns(){
-    this.lunService.GetAllLuns().subscribe(data => {
+    this.lunService.getAllLuns().subscribe(data => {
       this.LunsList=data;
       this.dataSource= new MatTableDataSource(this.LunsList);
       this.dataSource.paginator = this.paginator;
@@ -47,7 +47,7 @@ export class ViewLunsComponent implements OnInit {
   }
 
   DeleteLun(LunID : number){
-    this.lunService.DeleteLun(LunID).subscribe((res)=>{
+    this.lunService.deleteLun(LunID).subscribe((res)=>{
       console.log(res);
     });
   }

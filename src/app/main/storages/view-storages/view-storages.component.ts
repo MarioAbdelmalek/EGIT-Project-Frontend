@@ -43,15 +43,12 @@ export class ViewStoragesComponent implements OnInit {
   }
 
   getAllStorages() {
-    this.storageService.getAllStorages().subscribe({
-      next: (res) => {
+    this.storageService.getAllStorages().subscribe((res:any)=>{
+     {
         this.storageList = res;
         this.dataSource = new MatTableDataSource(this.storageList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      },
-      error: () => {
-        alert("Error While Fetching The Storages!!")
       }
     }
     );
@@ -77,11 +74,18 @@ export class ViewStoragesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getAllStorages();
 
     this.signalRService.startConnection();
     this.signalRService.updatedStorageList.subscribe((item : any) =>{
       this.storageList=item;
-    })    
+      this.dataSource = new MatTableDataSource(this.storageList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      
+    }) 
+   
   }
 }
+0

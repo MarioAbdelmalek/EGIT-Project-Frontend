@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateLunDto } from 'src/Models/CreateLunDto';
-import { LunService } from '../../lun.service';
+import { StorageService } from '../../storages/storage.service';
 import { ViewStorageLunsComponent } from '../../storages/view-storage-luns/view-storage-luns.component';
-import { ViewLunsComponent } from '../view-luns/view-luns.component';
+import { LunService } from '../lun.service';
 
 @Component({
   selector: 'app-create-lun',
@@ -14,9 +14,10 @@ import { ViewLunsComponent } from '../view-luns/view-luns.component';
 export class CreateLunComponent implements OnInit {
 
   lunForm!: FormGroup;
+  StorageLun:any;
 
   constructor(private lunService:LunService,private formBuilder:FormBuilder,
-    private dialogRef: MatDialogRef<ViewStorageLunsComponent>,
+    private dialogRef: MatDialogRef<ViewStorageLunsComponent>,private storageService:StorageService,
     @Inject(MAT_DIALOG_DATA) public id: number) { }
 
   ngOnInit(): void {
@@ -29,15 +30,20 @@ export class CreateLunComponent implements OnInit {
   }
   
   CreateLun(){
-    this.lunService.AddLun(this.lunForm.value).subscribe({
+    this.lunService.addLun(this.lunForm.value).subscribe({
       next: () => {
-        console.log(this.lunForm.value);
         this.dialogRef.close();
       },
       error: () => {
-        console.log(this.lunForm.value);
         alert("Error Creating Lun!!")
       }
     })
   }
+
+  getStorageByID(){
+    this.storageService.getStorageByID(this.id).subscribe((res)=>{
+      this.StorageLun=res;
+    })
+  }
+  
 }

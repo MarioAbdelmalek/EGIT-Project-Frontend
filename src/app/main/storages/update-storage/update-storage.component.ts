@@ -25,7 +25,6 @@ export class UpdateStorageComponent implements OnInit {
     this.storageService.updateStorage(this.storageToBeUpdated.StorageID, this.storageForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Updating The Storage!!")

@@ -4,13 +4,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from 'express';
 import { SignalRService } from 'src/app/signal-r.service';
 import { Lun } from 'src/Models/lun';
-import { LunService } from '../../lun.service';
-import { CreateLunComponent } from '../../lun/create-lun/create-lun.component';
-import { UpdateLunComponent } from '../../lun/update-lun/update-lun.component';
+import { CreateLunComponent } from '../../luns/create-lun/create-lun.component';
 import { StorageService } from '../storage.service';
+import { LunService } from '../../luns/lun.service';
+import { UpdateLunComponent } from '../../luns/update-lun/update-lun.component';
 
 @Component({
   selector: 'app-view-storage-luns',
@@ -97,7 +96,7 @@ export class ViewStorageLunsComponent implements OnInit {
   }
   
   DeleteLun(LunID : number){
-    this.lunService.DeleteLun(LunID).subscribe((res)=>{
+    this.lunService.deleteLun(LunID).subscribe((res)=>{
       console.log(res);
     });
   }
