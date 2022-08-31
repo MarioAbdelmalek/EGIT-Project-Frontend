@@ -8,6 +8,7 @@ import { SignalRService } from '../../signalR.service';
 import { CreateNodeComponent } from '../create-node/create-node.component';
 import { NodeService } from '../node.service';
 import { UpdateNodeComponent } from '../update-node/update-node.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-view-cluster-nodes',
@@ -30,7 +31,7 @@ export class ViewClusterNodesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private route: ActivatedRoute, nodeService: NodeService, signalRService: SignalRService, dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, nodeService: NodeService, signalRService: SignalRService, dialog: MatDialog, private router: Router, private toast: NgToastService) {
     this.nodeService = nodeService;
     this.dialog = dialog;
     this.signalRService = signalRService;
@@ -82,7 +83,7 @@ export class ViewClusterNodesComponent implements OnInit {
     this.nodeService.deleteNode(id).subscribe(({
       next: (res) => {
         if (res.IsValid === false) {
-          alert("Cannot Delete This Node, Please Delete Its VMs First!");
+          this.toast.error({ detail: "Cannot Delete This Node", summary: "Delete The Node VMs First!", duration: 4000 });
           this.router.navigate(['home/viewNodeVMs', id]);
         }
 

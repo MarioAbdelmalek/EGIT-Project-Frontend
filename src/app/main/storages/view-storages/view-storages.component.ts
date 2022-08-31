@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SignalRService } from '../../signalR.service';
 import { CreateStorageComponent } from '../create-storage/create-storage.component';
 import { StorageService } from '../storage.service';
 import { UpdateStorageComponent } from '../update-storage/update-storage.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-view-storages',
@@ -28,7 +29,8 @@ export class ViewStoragesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(storageService: StorageService, dialog: MatDialog, private route:ActivatedRoute,
-    private signalRService: SignalRService) {
+    private signalRService: SignalRService,private toast: NgToastService,
+    private router:Router) {
     this.storageService = storageService;
     this.dialog = dialog;
   }
@@ -68,9 +70,22 @@ export class ViewStoragesComponent implements OnInit {
   }
 
   deleteStorage(id: any) {
-    this.storageService.deleteStorage(id).subscribe(() => {
-      this.getAllStorages();
-    })
+    this.storageService.deleteStorage(id).subscribe(({
+      next: (res) => {
+        if (res.IsValid === false) {
+          this.toast.error({ detail: "Cannot Delete This Storage", summary: "Delete The Storage Luns First!", duration: 4000 });
+          this.router.navigate(['home/viewAllStorages/viewStorageLuns', id]);
+        }
+
+        else {
+          window.location.reload();
+        }
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    }))
   }
 
   ngOnInit(): void {

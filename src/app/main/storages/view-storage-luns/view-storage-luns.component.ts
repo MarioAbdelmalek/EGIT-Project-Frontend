@@ -3,13 +3,15 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Lun } from 'src/Models/lun';
 import { CreateLunComponent } from '../../luns/create-lun/create-lun.component';
 import { StorageService } from '../storage.service';
 import { LunService } from '../../luns/lun.service';
 import { UpdateLunComponent } from '../../luns/update-lun/update-lun.component';
 import { SignalRService } from '../../signalR.service';
+import { NgToastService } from 'ng-angular-popup';
+
 
 @Component({
   selector: 'app-view-storage-luns',
@@ -33,7 +35,8 @@ export class ViewStorageLunsComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor( storageService: StorageService, dialog:MatDialog, lunService:LunService,
-    route:ActivatedRoute, private signalRService:SignalRService) {
+    route:ActivatedRoute, private signalRService:SignalRService,
+    private toast: NgToastService, private router:Router) {
     this.storageService = storageService;
     this.route=route;
     this.dialog=dialog;
@@ -101,8 +104,22 @@ export class ViewStorageLunsComponent implements OnInit {
   }
   
   DeleteLun(LunID : number){
-    this.lunService.deleteLun(LunID).subscribe((res)=>{
-    });
+    this.lunService.deleteLun(LunID).subscribe(({
+      next: (res) => {
+        if (res.IsValid === false) {
+          this.toast.error({ detail: "Cannot Delete This Lun", summary: "Delete The Lun VMs First!", duration: 4000 });
+          this.router.navigate(['home/viewAllStorages/viewStorageLuns/:id/viewLunVMs/', LunID]);
+        }
+
+        else {
+          window.location.reload();
+        }
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    }))
   }
 
   openUpdateLunDialog(lunToBeUpdated:Lun){

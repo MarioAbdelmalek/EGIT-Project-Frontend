@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtToken } from '../jwt-token';
 import { UserService } from '../user.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-user-login',
@@ -15,7 +16,7 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   private formBuilder: FormBuilder;
 
-  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router, private toast: NgToastService) {
     this.formBuilder = formBuilder;
   }
 
@@ -25,12 +26,12 @@ export class UserLoginComponent implements OnInit {
         this.jwtToken = res;
 
         if (this.jwtToken.IsValid === false) {
-          alert(this.jwtToken.Response);
+          this.toast.error({ detail: "Error", summary: this.jwtToken.Response, duration: 4000 });
         }
 
         else {
           localStorage.setItem('user_token', this.jwtToken.Token);
-          alert(this.jwtToken.Response);
+          this.toast.success({ detail: "Success", summary: this.jwtToken.Response, duration: 4000 });
           this.router.navigate(['home']);
         }
 

@@ -18,7 +18,7 @@ export class ViewLunVmsComponent implements OnInit {
   lunVMsList:any;
   dataSource!: MatTableDataSource<any>;
   lunID:any;
-  displayedColumns: string[] = ['VMID', 'ClientID', 'RAM', 'CPUCores', 'Storage', 'IP', 'Bandwidth'];
+  displayedColumns: string[] = ['VMID', 'ClientID', 'RAM', 'CPUCores', 'Storage', 'IP', 'Bandwidth','Action'];
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -44,11 +44,18 @@ export class ViewLunVmsComponent implements OnInit {
           this.dataSource.sort = this.sort;
         },
         error: () => {
-          alert("Error While Fetching The Node VMs!!")
+          alert("Error While Fetching The Lun VMs!!")
         }
       }
       );
     }
+
+    deleteVM(VMID:any){
+      this.vmService.deleteVM(VMID).subscribe(() => {
+        window.location.reload();
+      })
+    }
+
   ngOnInit(): void {
     this.lunID = this.route.snapshot.paramMap.get("LunID");
     this.getLunVMs(this.lunID);

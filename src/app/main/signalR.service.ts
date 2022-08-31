@@ -50,6 +50,9 @@ export class SignalRService {
     this.hubConnection.on('UpdatedClients', (data) => {
         this.updatedClientList.next(JSON.parse(data));    
     });
+        this.hubConnection.on('UpdatedClients', (data) => {
+            this.updatedClientList.next(JSON.parse(data));
+        });
 
         this.hubConnection
             .start()

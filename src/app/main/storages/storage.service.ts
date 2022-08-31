@@ -24,7 +24,7 @@ export class StorageService {
         return this.http.post('https://localhost:44334/api/Storage/addStorage', data);
     }
 
-    deleteStorage(id: any) {
+    deleteStorage(id: any): Observable<any>{
         return this.http.delete('https://localhost:44334/api/Storage/deleteById?id=' + id);
     }
 

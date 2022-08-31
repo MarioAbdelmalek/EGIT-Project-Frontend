@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SignalRService } from '../../signalR.service';
 import { AddClientComponent } from '../add-client/add-client.component';
 import { ClientService } from '../client.service';
+import { UpdateClientComponent } from '../update-client/update-client.component';
 
 @Component({
   selector: 'app-view-clients',
@@ -17,6 +18,7 @@ export class ViewClientsComponent implements OnInit {
   clientService: ClientService;
   clientList: any;
   private dialog: MatDialog;
+  signalRService: SignalRService;
 
   displayedColumns: string[] = ['ClientID', 'ClientName', 'ClientSector', 'ISPID', 'Action'];
 
@@ -25,9 +27,10 @@ export class ViewClientsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(clientService: ClientService, dialog: MatDialog, private signalRService:SignalRService) {
+  constructor(clientService: ClientService, signalRService: SignalRService, dialog: MatDialog) {
     this.clientService = clientService;
     this.dialog = dialog;
+    this.signalRService = signalRService;
   }
 
   applyFilter(event: Event) {
@@ -60,11 +63,11 @@ export class ViewClientsComponent implements OnInit {
     });
   }
 
-  openUpdateClientDialog(clusterToBeUpdated: any) {
-    // this.dialog.open(UpdateClusterComponent, {
-    //   width: '400px',
-    //   data: clusterToBeUpdated
-    // });
+  openUpdateClientDialog(oldClient: any) {
+    this.dialog.open(UpdateClientComponent, {
+      width: '400px',
+      data: {clientToBeUpdated: oldClient}
+    });
   }
 
   deleteClient(id: any) {
@@ -77,9 +80,27 @@ export class ViewClientsComponent implements OnInit {
     this.getAllClients();
 
     this.signalRService.startConnection();
-    this.signalRService.updatedLunList.subscribe((item : any) =>{
-    this.clientList=item;
-    })
+    this.signalRService.updatedClientList.subscribe((item: any) => {
+      for (var client of item) {
+
+        var oldClient = this.clientList.find((obj: { ClientID: any; }) => {
+          return obj.ClientID == client.ClientID;
+        });
+
+        if (oldClient != null) {
+          var clientIndex = this.clientList.indexOf(oldClient);
+          this.clientList[clientIndex] = client;
+        }
+        else {
+          this.clientList.push(client);
+        }
+      }
+
+      this.dataSource = new MatTableDataSource(this.clientList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    });
   }
 
 }

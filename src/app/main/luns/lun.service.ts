@@ -20,7 +20,7 @@ export class LunService {
         return this.http.get('https://localhost:44334/api/Lun/getLunVms?LunID=' + id);
     }
 
-    deleteLun(id: number) {
+    deleteLun(id: number):Observable<any> {
         return this.http.delete('https://localhost:44334/api/Lun/deleteLun?id=' + id);
     }
 

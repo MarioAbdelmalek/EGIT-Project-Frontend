@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgToastModule } from 'ng-angular-popup';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { UserLoginComponent } from './users/user-login/user-login.component';
 import { UserService } from './users/user.service';
 import { MainComponent } from './main/main.component';
 import { AuthguardService } from './authguard.service';
+import { MainModule } from './main/main.module';
 
 
 @NgModule({
@@ -49,8 +51,10 @@ import { AuthguardService } from './authguard.service';
     MatTabsModule,
     MatButtonModule,
     FlexLayoutModule,
-
+    MainModule,
+    NgToastModule
   ],
+
   providers: [HttpClient, UserService, AuthguardService,{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
