@@ -8,6 +8,7 @@ import { SignalRService } from '../../signalR.service';
 import { ClusterService } from '../cluster.service';
 import { CreateClusterComponent } from '../create-cluster/create-cluster.component';
 import { UpdateClusterComponent } from '../update-cluster/update-cluster.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-view-clusters',
@@ -27,7 +28,7 @@ export class ViewClustersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(clusterService: ClusterService, dialog: MatDialog, private router: Router, signalRService: SignalRService) {
+  constructor(clusterService: ClusterService, dialog: MatDialog, private router: Router, signalRService: SignalRService, private toast: NgToastService) {
     this.clusterService = clusterService;
     this.dialog = dialog;
     this.signalRService = signalRService;
@@ -78,7 +79,7 @@ export class ViewClustersComponent implements OnInit {
     this.clusterService.deleteCluster(id).subscribe(({
       next: (res) => {
         if (res.IsValid === false) {
-          alert("Cannot Delete This Cluster, Please Delete Its Nodes First!");
+          this.toast.error({ detail: "Cannot Delete This Cluster", summary: "Delete The Cluster Nodes First!", duration: 4000 });
           this.router.navigate(['viewClusterNodes', id]);
         }
 
@@ -103,6 +104,7 @@ export class ViewClustersComponent implements OnInit {
         var oldCluster = this.clusterList.find((obj: { ClusterID: any; }) => {
           return obj.ClusterID == cluster.ClusterID;
         });
+
         if (oldCluster != null) {
           var clusterIndex = this.clusterList.indexOf(oldCluster);
           this.clusterList[clusterIndex] = cluster;

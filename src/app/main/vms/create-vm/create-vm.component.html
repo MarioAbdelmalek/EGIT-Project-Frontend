@@ -23,7 +23,8 @@
             <div>
                 <mat-form-field appearance="outline" class="full-width-field">
                     <mat-label>Lun Name</mat-label>
-                    <mat-select placeholder="Lun Name" formControlName="LunID">
+                    <mat-select placeholder="Lun Name" formControlName="LunID"
+                        (selectionChange)="getSelectedLun($event.value)">
                         <mat-option *ngFor="let lun of lunList" [value]="lun.LunID">
                             {{lun.LunName}}
                         </mat-option>
@@ -31,7 +32,7 @@
                 </mat-form-field>
             </div>
 
-            <ng-template [ngIf]="vmNode!=null">
+            <ng-template [ngIf]="vmNode != null">
                 <div>
                     <mat-form-field appearance="outline" class="full-width-field">
                         <mat-label>CPU Cores</mat-label>
@@ -41,14 +42,17 @@
                 </div>
             </ng-template>
 
-            <div>
-                <mat-form-field appearance="outline" class="full-width-field">
-                    <mat-label>Storage</mat-label>
-                    <input formControlName="Storage" matInput type="number" placeholder="Storage" min="{{0}}">
-                </mat-form-field>
-            </div>
+            <ng-template [ngIf]="selectedLun != null">
+                <div>
+                    <mat-form-field appearance="outline" class="full-width-field">
+                        <mat-label>Storage</mat-label>
+                        <input formControlName="Storage" matInput type="number" placeholder="Storage" min="{{0}}"
+                            max="{{selectedLun.LunRemainingSpace}}">
+                    </mat-form-field>
+                </div>
+            </ng-template>
 
-            <ng-template [ngIf]="vmNode!=null">
+            <ng-template [ngIf]="vmNode != null">
                 <div>
                     <mat-form-field appearance="outline" class="full-width-field">
                         <mat-label>RAM</mat-label>

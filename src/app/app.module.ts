@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgToastModule } from 'ng-angular-popup';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,7 +47,8 @@ import { MainModule } from './main/main.module';
     MatTabsModule,
     MatButtonModule,
     FlexLayoutModule,
-    MainModule
+    MainModule,
+    NgToastModule
   ],
 
   providers: [HttpClient, HttpClientModule, UserService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],

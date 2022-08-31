@@ -10,6 +10,7 @@ export class SignalRService {
     public updatedClusterList: Subject<any> = new Subject<any>();
     public updatedNodeList: Subject<any> = new Subject<any>();
     public updatedVMList: Subject<any> = new Subject<any>();
+    public updatedClientList: Subject<any> = new Subject<any>();
 
     private hubConnection!: signalR.HubConnection;
 
@@ -29,6 +30,10 @@ export class SignalRService {
 
         this.hubConnection.on('UpdatedVMs', (data) => {
             this.updatedVMList.next(JSON.parse(data));
+        });
+
+        this.hubConnection.on('UpdatedClients', (data) => {
+            this.updatedClientList.next(JSON.parse(data));
         });
 
         this.hubConnection

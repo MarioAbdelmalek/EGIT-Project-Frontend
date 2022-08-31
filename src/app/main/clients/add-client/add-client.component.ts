@@ -24,7 +24,6 @@ export class AddClientComponent implements OnInit {
     this.clientService.addClient(this.clientForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
-        location.reload();
       },
       error: () => {
         alert("Error Adding The Client!!")

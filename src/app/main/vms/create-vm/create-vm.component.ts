@@ -22,6 +22,7 @@ export class CreateVMComponent implements OnInit {
   clientList: any;
   vmNode: any;
   lunList: any;
+  selectedLun: any;
 
   constructor(formBuilder: FormBuilder, vmService: VMService, lunService: LunService, clientService: ClientService, nodeService: NodeService,
     @Inject(MAT_DIALOG_DATA) public nodeID: any,
@@ -66,6 +67,22 @@ export class CreateVMComponent implements OnInit {
       }
     }
     );
+  }
+
+  getLunByID(lunID: any) {
+    this.lunService.getLunByID(lunID).subscribe({
+      next: (res: any) => {
+        this.selectedLun = res;
+      },
+      error: () => {
+        alert("Error While Getting The Lun!!")
+      }
+    }
+    );
+  }
+
+  getSelectedLun(lunID: any) {
+    this.getLunByID(lunID);
   }
 
   getAllLuns() {

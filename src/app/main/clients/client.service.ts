@@ -21,7 +21,7 @@ export class ClientService {
         return this.http.delete('https://localhost:44334/api/Client/deleteClient?ClientID=' + id);
     }
 
-    // updateClient(id: number, data: any) {
-    //     return this.http.put('https://localhost:44334/api/Cluster/updateCluster?ClusterID=' + id, data);
-    // }
+    updateClient(id: number, data: any) {
+        return this.http.put('https://localhost:44334/api/Client/updateClient?ClientID=' + id, data);
+    }
 }

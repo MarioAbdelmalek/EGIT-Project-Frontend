@@ -20,6 +20,7 @@ export class UpdateVMComponent implements OnInit {
   vmNode: any;
   vmToBeUpdated: any;
   lunList: any;
+  selectedLun: any;
 
 
   constructor(formBuilder: FormBuilder, nodeService: NodeService, lunService: LunService,
@@ -33,7 +34,6 @@ export class UpdateVMComponent implements OnInit {
   }
 
   updateVM() {
-    debugger;
     this.vmService.updateVM(this.vmToBeUpdated.VMID, this.vmForm.value).subscribe({
       next: () => {
         this.dialogRef.close();
@@ -69,12 +69,28 @@ export class UpdateVMComponent implements OnInit {
     );
   }
 
+  getLunByID(lunID: any) {
+    this.lunService.getLunByID(lunID).subscribe({
+      next: (res: any) => {
+        this.selectedLun = res;
+      },
+      error: () => {
+        alert("Error While Getting The Lun!!")
+      }
+    }
+    );
+  }
+
+  getSelectedLun(lunID: any) {
+    this.getLunByID(lunID);
+  }
+
   populateUpdateForm() {
     if (this.data) {
       this.vmForm.controls['CPUCores'].setValue(this.data['vmToBeUpdated'].CPUCores);
       this.vmForm.controls['RAM'].setValue(this.data['vmToBeUpdated'].RAM);
+      //this.vmForm.controls['LunID'].setValue(this.data['vmToBeUpdated'].LunID);
       this.vmForm.controls['Storage'].setValue(this.data['vmToBeUpdated'].Storage);
-      this.vmForm.controls['LunID'].setValue(this.data['vmToBeUpdated'].LunID);
     }
   }
 
@@ -86,8 +102,8 @@ export class UpdateVMComponent implements OnInit {
     this.vmForm = this.formBuilder.group({
       CPUCores: ['', Validators.required],
       RAM: ['', Validators.required],
-      Storage: ['', Validators.required],
-      LunID: ['', Validators.required]
+      LunID: ['', Validators.required],
+      Storage: ['', Validators.required]
     });
   }
 
